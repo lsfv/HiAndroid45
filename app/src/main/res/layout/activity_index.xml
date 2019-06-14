@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Index">
+
+    <Button
+        android:id="@+id/btn_downService2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="downloadService2"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="@+id/btn_javapractice9"
+        app:layout_constraintTop_toBottomOf="@+id/btn_javapractice9" />
+
+    <Button
+        android:id="@+id/btn_downService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="downloadService"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/btn_enterservices2"
+        app:layout_constraintTop_toTopOf="@+id/btn_enterservices2" />
+
+    <Button
+        android:id="@+id/btn_enterservices2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Entry2 to Service"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/btn_javapractice9"
+        app:layout_constraintTop_toTopOf="@+id/btn_javapractice9" />
+
+    <Button
+        android:id="@+id/btn_javapractice13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Java"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_javapractice10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="API"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_javapractice13"
+        app:layout_constraintStart_toEndOf="@+id/btn_javapractice13" />
+
+    <Button
+        android:id="@+id/btn_javapractice11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Meterial"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_javapractice10"
+        app:layout_constraintStart_toEndOf="@+id/btn_javapractice10" />
+
+    <Button
+        android:id="@+id/btn_javapractice12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Other"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_javapractice11"
+        app:layout_constraintStart_toEndOf="@+id/btn_javapractice11" />
+
+    <Button
+        android:id="@+id/btn_javapractice7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:text="MultipleMedia"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_javapractice4" />
+
+    <Button
+        android:id="@+id/btn_javapractice8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="124dp"
+        android:layout_marginEnd="8dp"
+        android:text="NetWork"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="@+id/btn_javapractice3"
+        app:layout_constraintStart_toStartOf="@+id/btn_javapractice"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_javapractice9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Services"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="@+id/btn_javapractice7"
+        app:layout_constraintTop_toBottomOf="@+id/btn_javapractice7" />
+
+    <Button
+        android:id="@+id/btn_javapractice4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Broadcast"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_javapractice" />
+
+    <Button
+        android:id="@+id/btn_javapractice5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="8dp"
+        android:text="Serialization"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="@+id/btn_javapractice3"
+        app:layout_constraintStart_toStartOf="@+id/btn_javapractice"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_javapractice6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="8dp"
+        android:text="ContentProvider"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_javapractice3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Fragment"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_javapractice2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="UI"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="@+id/btn_javapractice3"
+        app:layout_constraintStart_toStartOf="@+id/btn_javapractice"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_javapractice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Activity"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>
