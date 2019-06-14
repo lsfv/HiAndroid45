@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.concurrent.Callable;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -24,6 +25,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Index extends LSBaseActivity
 {
     private TextView tv_msg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -36,10 +38,168 @@ public class Index extends LSBaseActivity
         //ThreadPractice threadPractice=new ThreadPractice();
         //threadPractice.test();
 
+        //p1();
+
+        //productConsume();
+
+//        BlockQueueTest blockQueueTest=new BlockQueueTest();
+//        blockQueueTest.Start();
+
+        try
+        {
+            SafeReadWriterCache<Integer, Integer> mycache = new SafeReadWriterCache<>();
+            Thread writercach = new Thread(new Writercach(mycache, 1, 10000));
+            Thread writercach2 = new Thread(new Writercach(mycache, 10001, 20000));
+
+
+            Thread r1 = new Thread(new Readercache(mycache), "t1");
+            Thread r2 = new Thread(new Readercache(mycache), "t2");
+
+            r1.start();
+           r2.start();
+            writercach.start();
+            writercach2.start();
+        } catch (Exception e)
+        {
+            LSComponentsHelper.LS_Log.Log_Exception(e);
+        }
+
+
     }
 
 
 
+    private void productConsume()
+    {
+        ThreadsPractice2 threadsPractice2=new ThreadsPractice2();
+
+        Thread w1=new Thread(new Writer(threadsPractice2, 1, 10000));
+        Thread w2=new Thread(new Writer(threadsPractice2, 10001, 20000));
+        w1.start();
+        w2.start();
+
+
+        Thread r1=new Thread(new Reader(threadsPractice2));
+        Thread r2=new Thread(new Reader(threadsPractice2));
+        r1.start();
+        r2.start();
+    }
+
+    private class Readercache implements Runnable
+    {
+        private SafeReadWriterCache<Integer,Integer> mData;
+        public Readercache(SafeReadWriterCache<Integer,Integer> threadsPractice2)
+        {
+            mData=threadsPractice2;
+        }
+        @Override
+        public void run()
+        {
+            while (true)
+            {
+                int id=Thread.currentThread().getName()=="t1"?15000:13000;
+                Integer bookid=mData.get(id);
+                if(bookid==null)
+                {
+                    LSComponentsHelper.LS_Log.Log_INFO("bookid: null");
+                }
+                else {
+                    LSComponentsHelper.LS_Log.Log_INFO("bookid: "+bookid);
+                }
+                try
+                {
+                    Thread.sleep(2000);
+                } catch (Exception e)
+                {
+                    LSComponentsHelper.LS_Log.Log_Exception(e);
+                }
+            }
+        }
+    }
+
+    private class Writercach implements Runnable
+    {
+        private SafeReadWriterCache<Integer,Integer> mData;
+        private int mstart,mend;
+        public Writercach(SafeReadWriterCache<Integer,Integer> cache,int satrt,int end)
+        {
+            mData=cache;
+            mstart=satrt;
+            mend=end;
+        }
+        @Override
+        public void run()
+        {
+            long startTime= System.currentTimeMillis();
+
+            for (int i=mstart;i<=mend;i++)
+            {
+                mData.set(i,i);
+            }
+
+            long endTime=System.currentTimeMillis();
+            LSComponentsHelper.LS_Log.Log_INFO(Thread.currentThread().getName()+"use millseconds:"+(endTime-startTime)+". maxid:");
+        }
+    }
+
+
+    private class Writer implements Runnable
+    {
+        private ThreadsPractice2 mData;
+        private int mstart,mend;
+        public Writer(ThreadsPractice2 threadsPractice2,int satrt,int end)
+        {
+            mData=threadsPractice2;
+            mstart=satrt;
+            mend=end;
+        }
+        @Override
+        public void run()
+        {
+            long startTime= System.currentTimeMillis();
+
+            for (int i=mstart;i<=mend;i++)
+            {
+                mData.addBookID(i);
+            }
+
+            long endTime=System.currentTimeMillis();
+            LSComponentsHelper.LS_Log.Log_INFO(Thread.currentThread().getName()+"use millseconds:"+(endTime-startTime)+". maxid:");
+        }
+    }
+
+    private class Reader implements Runnable
+    {
+        private ThreadsPractice2 mData;
+        public Reader(ThreadsPractice2 threadsPractice2)
+        {
+            mData=threadsPractice2;
+        }
+        @Override
+        public void run()
+        {
+            while (true)
+            {
+                int bookid=mData.getBookID();
+                if(bookid>0)
+                {
+                    LSComponentsHelper.LS_Log.Log_INFO("bookid:"+bookid);
+                }
+            }
+        }
+    }
+
+    private void p1()
+    {
+        ThreadsPractice threadsPractice=new ThreadsPractice();
+        try
+        {
+            threadsPractice.start();
+        } catch (Exception e)
+        {
+            LSComponentsHelper.LS_Log.Log_Exception(e);
+        }
+    }
 
 
     //thread
