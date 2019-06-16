@@ -7,14 +7,25 @@
     tools:context=".Index">
 
     <Button
+        android:id="@+id/btn_downService3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="dService3"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/btn_downService2"
+        app:layout_constraintTop_toBottomOf="@+id/btn_javapractice9" />
+
+    <Button
         android:id="@+id/btn_downService2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="downloadService2"
+        android:layout_marginTop="4dp"
+        android:text="dService2"
         android:textAllCaps="false"
-        app:layout_constraintStart_toStartOf="@+id/btn_javapractice9"
+        app:layout_constraintStart_toEndOf="@+id/btn_downService"
         app:layout_constraintTop_toBottomOf="@+id/btn_javapractice9" />
 
     <Button
@@ -22,17 +33,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="downloadService"
+        android:layout_marginTop="4dp"
+        android:text="dService"
         android:textAllCaps="false"
-        app:layout_constraintStart_toEndOf="@+id/btn_enterservices2"
-        app:layout_constraintTop_toTopOf="@+id/btn_enterservices2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_javapractice9" />
 
     <Button
         android:id="@+id/btn_enterservices2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Entry2 to Service"
+        android:text="Singal action for Service"
         android:textAllCaps="false"
         app:layout_constraintStart_toEndOf="@+id/btn_javapractice9"
         app:layout_constraintTop_toTopOf="@+id/btn_javapractice9" />

@@ -11,6 +11,7 @@ import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
 
 public class Index extends LSBaseActivity implements View.OnClickListener
 {
+    private Button mBtnDownService3;
     private Button mBtnDownService2;
     private Button mBtnDownService;
     private Button mBtnEnterservices2;
@@ -28,14 +29,9 @@ public class Index extends LSBaseActivity implements View.OnClickListener
     private Button mBtnJavapractice2;
     private Button mBtnJavapractice;
 
-
-
-
-
-
-
     private void findControls()
     {
+        mBtnDownService3 = (Button) findViewById(R.id.btn_downService3);
         mBtnDownService2 = (Button) findViewById(R.id.btn_downService2);
         mBtnDownService = (Button) findViewById(R.id.btn_downService);
         mBtnEnterservices2 = (Button) findViewById(R.id.btn_enterservices2);
@@ -81,6 +77,7 @@ public class Index extends LSBaseActivity implements View.OnClickListener
         mBtnEnterservices2.setOnClickListener(this);
         mBtnDownService.setOnClickListener(this);
         mBtnDownService2.setOnClickListener(this);
+        mBtnDownService3.setOnClickListener(this);
     }
 
     @Override
@@ -151,6 +148,11 @@ public class Index extends LSBaseActivity implements View.OnClickListener
             case R.id.btn_downService2:
             {
                 LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Services.DownloadService2.class);
+                break;
+            }
+            case R.id.btn_downService3:
+            {
+                LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Services.DownloadService3.class);
                 break;
             }
             case R.id.btn_javapractice10:
