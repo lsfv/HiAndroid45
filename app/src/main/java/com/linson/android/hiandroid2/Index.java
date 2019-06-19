@@ -11,10 +11,6 @@ import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
 
 public class Index extends LSBaseActivity implements View.OnClickListener
 {
-    private Button mBtnDownService3;
-    private Button mBtnDownService2;
-    private Button mBtnDownService;
-    private Button mBtnEnterservices2;
     private Button mBtnJavapractice13;
     private Button mBtnJavapractice10;
     private Button mBtnJavapractice11;
@@ -31,10 +27,6 @@ public class Index extends LSBaseActivity implements View.OnClickListener
 
     private void findControls()
     {
-        mBtnDownService3 = (Button) findViewById(R.id.btn_downService3);
-        mBtnDownService2 = (Button) findViewById(R.id.btn_downService2);
-        mBtnDownService = (Button) findViewById(R.id.btn_downService);
-        mBtnEnterservices2 = (Button) findViewById(R.id.btn_enterservices2);
         mBtnJavapractice13 = (Button) findViewById(R.id.btn_javapractice13);
         mBtnJavapractice10 = (Button) findViewById(R.id.btn_javapractice10);
         mBtnJavapractice11 = (Button) findViewById(R.id.btn_javapractice11);
@@ -74,10 +66,6 @@ public class Index extends LSBaseActivity implements View.OnClickListener
         mBtnJavapractice11.setOnClickListener(this);
         mBtnJavapractice12.setOnClickListener(this);
         mBtnJavapractice13.setOnClickListener(this);
-        mBtnEnterservices2.setOnClickListener(this);
-        mBtnDownService.setOnClickListener(this);
-        mBtnDownService2.setOnClickListener(this);
-        mBtnDownService3.setOnClickListener(this);
     }
 
     @Override
@@ -85,17 +73,17 @@ public class Index extends LSBaseActivity implements View.OnClickListener
     {
         switch (v.getId())
         {
-            case R.id.btn_javapractice13:
+            case R.id.btn_javapractice13://java
             {
                 LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.JavaPractice.Index.class);
                 break;
             }
-            case R.id.btn_javapractice:
+            case R.id.btn_javapractice://activity
             {
                 LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Intent.Index.class);
                 break;
             }
-            case R.id.btn_javapractice2:
+            case R.id.btn_javapractice2://ui
             {
                 LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.UI.Index.class);
                 break;
@@ -105,71 +93,50 @@ public class Index extends LSBaseActivity implements View.OnClickListener
                 LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Fragment.Index.class);
                 break;
             }//broadcast
-            case R.id.btn_javapractice4:
+            case R.id.btn_javapractice4://broadcast
             {
                 LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.BroadcastStudy.Index.class);
                 break;
             }
-            case R.id.btn_javapractice5:
+            case R.id.btn_javapractice5://serialization
             {
                 LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Selialzation.Index.class);
                 break;
             }
-            case R.id.btn_javapractice6:
+            case R.id.btn_javapractice6://contentprovider
             {
 
                 break;
             }
-            case R.id.btn_javapractice7:
+            case R.id.btn_javapractice7://multeplemedia
             {
                 LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.MultiMedia.Index.class);
                 break;
             }
-            case R.id.btn_javapractice8:
+            case R.id.btn_javapractice8://network
             {
                 LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.NetworkStudy.Index.class);
                 break;
             }
-            case R.id.btn_javapractice9:
+            case R.id.btn_javapractice10://api
+            {
+                break;
+            }
+            case R.id.btn_javapractice11://meterial
+            {
+
+                break;
+            }
+            case R.id.btn_javapractice12://other
+            {
+
+                break;
+            }
+            case R.id.btn_javapractice9://Services
             {
                 LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Services.Index.class);
                 break;
             }
-            case R.id.btn_enterservices2:
-            {
-                LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Services.Index2.class);
-                break;
-            }
-            case R.id.btn_downService:
-            {
-                LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Services.DownloadService.class);
-                break;
-            }
-            case R.id.btn_downService2:
-            {
-                LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Services.DownloadService2.class);
-                break;
-            }
-            case R.id.btn_downService3:
-            {
-                LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Services.DownloadService3.class);
-                break;
-            }
-            case R.id.btn_javapractice10:
-            {
-                break;
-            }
-            case R.id.btn_javapractice11:
-            {
-
-                break;
-            }
-            case R.id.btn_javapractice12:
-            {
-
-                break;
-            }
-
         }
     }
 }

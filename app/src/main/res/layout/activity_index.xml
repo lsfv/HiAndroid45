@@ -7,49 +7,6 @@
     tools:context=".Index">
 
     <Button
-        android:id="@+id/btn_downService3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:text="dService3"
-        android:textAllCaps="false"
-        app:layout_constraintStart_toEndOf="@+id/btn_downService2"
-        app:layout_constraintTop_toBottomOf="@+id/btn_javapractice9" />
-
-    <Button
-        android:id="@+id/btn_downService2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:text="dService2"
-        android:textAllCaps="false"
-        app:layout_constraintStart_toEndOf="@+id/btn_downService"
-        app:layout_constraintTop_toBottomOf="@+id/btn_javapractice9" />
-
-    <Button
-        android:id="@+id/btn_downService"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:text="dService"
-        android:textAllCaps="false"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_javapractice9" />
-
-    <Button
-        android:id="@+id/btn_enterservices2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Singal action for Service"
-        android:textAllCaps="false"
-        app:layout_constraintStart_toEndOf="@+id/btn_javapractice9"
-        app:layout_constraintTop_toTopOf="@+id/btn_javapractice9" />
-
-    <Button
         android:id="@+id/btn_javapractice13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -105,13 +62,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="124dp"
-        android:layout_marginEnd="8dp"
         android:text="NetWork"
         android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="@+id/btn_javapractice3"
-        app:layout_constraintStart_toStartOf="@+id/btn_javapractice"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/btn_javapractice7"
+        app:layout_constraintTop_toTopOf="@+id/btn_javapractice7" />
 
     <Button
         android:id="@+id/btn_javapractice9"
@@ -143,8 +97,8 @@
         android:layout_marginEnd="8dp"
         android:text="Serialization"
         android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="@+id/btn_javapractice3"
-        app:layout_constraintStart_toStartOf="@+id/btn_javapractice"
+        app:layout_constraintEnd_toStartOf="@+id/btn_javapractice6"
+        app:layout_constraintStart_toEndOf="@+id/btn_javapractice4"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button

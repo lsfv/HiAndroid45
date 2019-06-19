@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
@@ -23,7 +24,10 @@ import android.util.Log;
 
 import com.linson.android.hiandroid2.R;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 //类似public static class MultiMedia，把功能还是按组件分类出来。
 public abstract class LSComponentsHelper
@@ -32,7 +36,7 @@ public abstract class LSComponentsHelper
     {
         public void OnchangeState(int state,int rid);
     }
-    //old version's functions
+    //region old version's functions
     public static void Log_INFO(String msg)
     {
         LS_Log.Log_INFO(msg);
@@ -53,7 +57,7 @@ public abstract class LSComponentsHelper
     {
         LS_Activity.startActivity(context, cls);
     }
-    //old version's functions
+    //endregion old version's functions
 
 
     //global define
@@ -180,6 +184,7 @@ public abstract class LSComponentsHelper
         }
     }
 
+    //region notification
     public static class LS_Notification
     {
         public static NotificationManager getManager(Context context)
@@ -211,4 +216,101 @@ public abstract class LSComponentsHelper
             return builder.build();
         }
     }
+    //endregion
+
+    //region AsyncTask
+    public static abstract class LS_AsyncTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result>
+    {
+        public SafeControlAction mControlAction=new SafeControlAction();
+
+
+        public static class SafeControlAction
+        {
+            private boolean bPause=false;
+            private boolean bCancel=false;
+            private int otherAction=-1;
+
+            public SafeControlAction()
+            {
+                bPause=false;
+                bCancel=false;
+                otherAction=-1;
+            }
+
+            private ReentrantLock mReentrantLock=new ReentrantLock();
+
+            public boolean getPauseAndRestoreIfTrue()
+            {
+                boolean res=false;
+                mReentrantLock.lock();
+                try
+                {
+                    if(bPause)
+                    {
+                        res=true;
+                        bPause=false;
+                    }
+                }
+                finally { mReentrantLock.unlock(); }
+                return res;
+            }
+
+            public void setPause()
+            {
+                mReentrantLock.lock();
+                try { bPause=true; }
+                finally { mReentrantLock.unlock(); }
+            }
+
+            public boolean getCancelAndRestoreIfTrue()
+            {
+                boolean res=false;
+                mReentrantLock.lock();
+                try
+                {
+                    if(bCancel)
+                    {
+                        res=true;
+                        bCancel=false;
+                    }
+                }
+                finally { mReentrantLock.unlock(); }
+                return res;
+            }
+
+            public void setCancel()
+            {
+                LS_Log.Log_INFO("safesetcancel");
+                mReentrantLock.lock();
+                try { bCancel=true;}
+                finally { mReentrantLock.unlock();}
+            }
+
+            public int getOtherActionAndRestoreIFNotNagative1()
+            {
+                int res=-1;
+                mReentrantLock.lock();
+                try {
+                    if(otherAction!=-1)
+                    {
+                        res = otherAction;
+                        otherAction=-1;
+                    }
+                }
+                finally { mReentrantLock.unlock(); }
+                return res;
+            }
+
+            public void setOtherAction(int vv)
+            {
+                mReentrantLock.lock();
+                try {otherAction=vv;}
+                finally { mReentrantLock.unlock();}
+            }
+
+        }
+
+
+    }
+    //endregion
 }

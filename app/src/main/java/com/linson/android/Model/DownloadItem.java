@@ -1,9 +1,8 @@
 package com.linson.android.Model;
 
-import com.linson.android.hiandroid2.BackServices.Binder_Download;
-
 public class DownloadItem
 {
+    public long itemid;
     public String filename;
     public int progress;
     public ENUM_DownloadStatus taskStatus;
@@ -13,6 +12,9 @@ public class DownloadItem
         prepare,
         downloading,
         pause,
-        cancel
+        cancel,
+        ok,
+        error,
+        cancela
     }
 }

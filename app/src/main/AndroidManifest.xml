@@ -66,30 +66,18 @@
 
         <activity android:name=".MultiMedia.cutBitmap" />
         <activity android:name=".NetworkStudy.Index" />
-        <activity android:name=".Services.Index" />
-        <activity android:name=".Services.Index2" />
-        <activity android:name=".Services.DownloadService" />
-
-        <service
-            android:name=".BackServices.MP3Services"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".BackServices.DownloadServices"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".BackServices.Services_Download"
-            android:enabled="true"
-            android:exported="true" />
-
-        <activity android:name=".Services.DownloadService2" />
         <activity android:name=".Fragment.Index" />
         <activity android:name=".Fragment.StaticFragment" />
         <activity android:name=".Fragment.DynamicFragment" />
         <activity android:name=".Fragment.StackFragment" />
         <activity android:name=".Fragment.complexfragment" />
-        <activity android:name=".Services.DownloadService3"></activity>
+        <activity android:name=".Services.Index" />
+        <activity android:name=".Services.HandlerPractice" />
+        <activity android:name=".Services.AsyncTaskPractice" />
+        <activity android:name=".Services.DownloadService"></activity>
+
+        <service android:name=".BackServices.DownloadServices" android:enabled="true" android:exported="true"></service>
+
     </application>
 
 </manifest>
