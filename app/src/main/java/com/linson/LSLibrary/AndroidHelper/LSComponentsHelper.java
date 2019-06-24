@@ -61,7 +61,7 @@ public abstract class LSComponentsHelper
 
 
     //global define
-    public static String LOGTAG="MYCUSTOM";
+    public static String LOGTAG="MYCUSTOM~!@";
     public interface VoidHandler
     {
         public void doti();
@@ -164,7 +164,7 @@ public abstract class LSComponentsHelper
     {
         public static void Log_INFO(String msg)
         {
-            Log.i(LOGTAG, msg);
+            Log.i(LOGTAG, getAutoJumpLogInfos()+" : "+msg);
         }
         public static void Log_DEBUG(String msg)
         {
@@ -176,11 +176,22 @@ public abstract class LSComponentsHelper
         }
         public static void Log_Exception(Exception e)
         {
-            Log.i(LOGTAG, e.toString());
+            Log.i(LOGTAG, getAutoJumpLogInfos()+" : "+e.toString());
         }
-        public static void Log_Exception(Exception e,String prefix)
-        {
-            Log.i(LOGTAG,prefix+"."+ e.toString());
+        public static void Log_Exception(Exception e,String prefix) { Log.i(LOGTAG,prefix+"."+ e.toString()); }
+
+        private static String getAutoJumpLogInfos() {
+            String[] infos = new String[]{"", "", ""};
+            StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+            if (elements.length < 5) {
+                return "";
+            } else {
+                infos[0] = elements[4].getClassName().substring(
+                        elements[4].getClassName().lastIndexOf(".") + 1);
+                infos[1] = " ["+elements[4].getMethodName() + "].";
+                infos[2] = " Line:" +elements[4].getLineNumber() + "";
+                return infos[0]+infos[1]+infos[2];
+            }
         }
     }
 

@@ -10,14 +10,19 @@ import com.linson.android.hiandroid2.R;
 
 public class Index extends AppCompatActivity implements View.OnClickListener
 {
+    private Button mBtnSingle;
     private Button mBtnDownloadservices;
     private Button mBtnHandler3;
     private Button mBtnAsync;
     private Button mBtnHandler;
 
+
+
+
     //region  controls and click event
     private void findControls()
     {
+        mBtnSingle = (Button) findViewById(R.id.btn_single);
         mBtnDownloadservices = (Button) findViewById(R.id.btn_downloadservices);
         mBtnHandler3 = (Button) findViewById(R.id.btn_handler3);
         mBtnAsync = (Button) findViewById(R.id.btn_async);
@@ -27,6 +32,7 @@ public class Index extends AppCompatActivity implements View.OnClickListener
         mBtnHandler3.setOnClickListener(this);
         mBtnAsync.setOnClickListener(this);
         mBtnHandler.setOnClickListener(this);
+        mBtnSingle.setOnClickListener(this);
     }
 
     @Override
@@ -47,6 +53,12 @@ public class Index extends AppCompatActivity implements View.OnClickListener
             case R.id.btn_downloadservices:
             {
                 LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Services.DownloadService.class);
+                break;
+            }
+            case R.id.btn_single:
+            {
+                LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Services.SingleServices.class);
+                break;
             }
             default:
             {

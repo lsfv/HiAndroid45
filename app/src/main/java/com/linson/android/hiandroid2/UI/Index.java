@@ -7,15 +7,21 @@ import android.widget.Button;
 import com.linson.LSLibrary.AndroidHelper.LSBaseActivity;
 import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
 import com.linson.android.hiandroid2.R;
+import com.linson.android.hiandroid2.UI.myCustomView.*;
 
 public class Index extends LSBaseActivity implements View.OnClickListener
 {
+    private Button mBtnAdvanceview;
+    private Button mBtnUi6;
     private Button mBtnUi5;
     private Button mBtnUi4;
     private Button mBtnUi3;
     private Button mBtnUi2;
     private Button mBtnUi;
     private Button mBtnUi1;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -28,6 +34,8 @@ public class Index extends LSBaseActivity implements View.OnClickListener
 
     private void findcontrols()
     {
+        mBtnAdvanceview = (Button) findViewById(R.id.btn_advanceview);
+        mBtnUi6 = (Button) findViewById(R.id.btn_ui6);
         mBtnUi5 = (Button) findViewById(R.id.btn_ui5);
         mBtnUi4 = (Button) findViewById(R.id.btn_ui4);
         mBtnUi3 = (Button) findViewById(R.id.btn_ui3);
@@ -41,6 +49,7 @@ public class Index extends LSBaseActivity implements View.OnClickListener
         mBtnUi3.setOnClickListener(this);
         mBtnUi4.setOnClickListener(this);
         mBtnUi5.setOnClickListener(this);
+        mBtnAdvanceview.setOnClickListener(this);
     }
 
     @Override
@@ -76,6 +85,11 @@ public class Index extends LSBaseActivity implements View.OnClickListener
             case R.id.btn_ui5:
             {
                 LSComponentsHelper.startActivity(this, customView.class);
+                break;
+            }
+            case R.id.btn_advanceview:
+            {
+                LSComponentsHelper.startActivity(this,index.class);
                 break;
             }
         }

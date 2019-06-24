@@ -7,6 +7,17 @@
     tools:context=".UI.Index">
 
     <Button
+        android:id="@+id/btn_advanceview"
+        android:layout_width="344dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="328dp"
+        android:text="advance view"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/btn_ui6"
         android:layout_width="344dp"
         android:layout_height="44dp"
