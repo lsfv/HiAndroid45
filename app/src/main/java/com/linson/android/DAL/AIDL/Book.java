@@ -3,8 +3,6 @@ package com.linson.android.DAL.AIDL;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
-
 public class Book implements Parcelable
 {
     public int mBookID;

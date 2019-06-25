@@ -2,12 +2,20 @@ package com.linson.android.hiandroid2.BackServices;
 
 import android.app.Service;
 import android.content.Intent;
-import android.os.Binder;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
+import android.os.RemoteException;
+
+import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
+import com.linson.android.DAL.AIDL.Book;
+import com.linson.android.DAL.AIDL.IBookManager;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class CaculateServices extends Service
 {
+    private CopyOnWriteArrayList<Book> mBooks=new CopyOnWriteArrayList<>();
+
     @android.support.annotation.Nullable
     @Override
     public IBinder onBind(Intent intent)
@@ -15,24 +23,40 @@ public class CaculateServices extends Service
         return new BinderCaculate(this);
     }
 
-    public int add(int a,int b)
+    private void addBook(Book book)
     {
-        return a+b;
+        try
+        {
+        } catch (Exception e)
+        {
+            LSComponentsHelper.LS_Log.Log_Exception(e);
+        }
+        mBooks.add(book);
     }
 
-
-    public static class BinderCaculate extends Binder
+    private List<Book> getList()
     {
-        public CaculateServices mCaculateServices;
+        return mBooks;
+    }
 
-        public BinderCaculate(@NonNull CaculateServices cs)
+    public static class BinderCaculate extends IBookManager.Stub
+    {
+        private CaculateServices mCaculateServices;
+        public BinderCaculate(CaculateServices cc)
         {
-            mCaculateServices=cs;
+            mCaculateServices=new CaculateServices();
         }
 
-        public int add(int a,int b)
+        @Override
+        public void addBook(Book book) throws RemoteException
         {
-            return mCaculateServices.add(a, b);
+            mCaculateServices.addBook(book);
+        }
+
+        @Override
+        public List<Book> getList() throws RemoteException
+        {
+            return mCaculateServices.getList();
         }
     }
 }

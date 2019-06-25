@@ -2,7 +2,6 @@ package com.linson.android.hiandroid2.Services;
 
 import android.content.ComponentName;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
+import com.linson.android.DAL.AIDL.Book;
+import com.linson.android.DAL.AIDL.IBookManager;
 import com.linson.android.hiandroid2.BackServices.CaculateServices;
 import com.linson.android.hiandroid2.R;
-import com.linson.android.hiandroid2.BackServices.CaculateServices.*;
+
+import java.util.List;
 
 public class SingleServices extends AppCompatActivity implements View.OnClickListener
 {
@@ -42,8 +44,22 @@ public class SingleServices extends AppCompatActivity implements View.OnClickLis
             {
                 if(mConnectionCaculate!=null && mConnectionCaculate.mBinderCaculate!=null)
                 {
-                    int res=mConnectionCaculate.mBinderCaculate.add(6, 3);
-                    mButton10.setText("res:"+res);
+                    Book book=new Book(1, "java");
+                    try
+                    {
+                        mConnectionCaculate.mBinderCaculate.addBook(book);
+                    } catch (Exception e)
+                    {
+                        LSComponentsHelper.LS_Log.Log_Exception(e);
+                    }
+                    try
+                    {
+                        List<Book> res = mConnectionCaculate.mBinderCaculate.getList();
+                        LSComponentsHelper.LS_Log.Log_INFO("size"+res.size()+".name"+((Book)res.get(0)).mBookName);
+                    } catch (Exception e)
+                    {
+                        LSComponentsHelper.LS_Log.Log_Exception(e);
+                    }
                 }
                 break;
             }
@@ -91,14 +107,12 @@ public class SingleServices extends AppCompatActivity implements View.OnClickLis
     //region connection
     private class ConnectionCaculate implements ServiceConnection
     {
-        public BinderCaculate mBinderCaculate;
+        public IBookManager mBinderCaculate;
         @Override
         public void onServiceConnected(ComponentName name, IBinder service)
         {
-            if(service instanceof BinderCaculate)
-            {
-                mBinderCaculate=(BinderCaculate)service;
-            }
+            //通过Stub的asInterface得到其代理类Stub.Proxy
+            mBinderCaculate=IBookManager.Stub.asInterface(service);
         }
 
         @Override

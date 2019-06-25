@@ -15,6 +15,10 @@ public class Index extends AppCompatActivity implements View.OnClickListener
     private Button mBtnHandler3;
     private Button mBtnAsync;
     private Button mBtnHandler;
+    private Button mBtnAIDL;
+
+
+
 
 
 
@@ -27,12 +31,14 @@ public class Index extends AppCompatActivity implements View.OnClickListener
         mBtnHandler3 = (Button) findViewById(R.id.btn_handler3);
         mBtnAsync = (Button) findViewById(R.id.btn_async);
         mBtnHandler = (Button) findViewById(R.id.btn_handler);
+        mBtnAIDL = (Button) findViewById(R.id.btn_AIDL);
 
         mBtnDownloadservices.setOnClickListener(this);
         mBtnHandler3.setOnClickListener(this);
         mBtnAsync.setOnClickListener(this);
         mBtnHandler.setOnClickListener(this);
         mBtnSingle.setOnClickListener(this);
+        mBtnAIDL.setOnClickListener(this);
     }
 
     @Override
@@ -58,6 +64,11 @@ public class Index extends AppCompatActivity implements View.OnClickListener
             case R.id.btn_single:
             {
                 LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Services.SingleServices.class);
+                break;
+            }
+            case R.id.btn_AIDL:
+            {
+                LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Services.SaleQuery.class);
                 break;
             }
             default:
