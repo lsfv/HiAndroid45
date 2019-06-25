@@ -88,8 +88,8 @@
         <service
             android:name=".BackServices.SaleManager"
             android:enabled="true"
-            android:exported="true"
-            android:process="true"/>
+            android:process=":saleManager"
+            android:exported="true" />
 
         <activity android:name=".UI.myCustomView.index" />
         <activity android:name=".UI.myCustomView.ScrollerPractice1" />

@@ -16,6 +16,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class SaleManager extends Service
 {
     private CopyOnWriteArrayList<AIDL_Sale> mSales=new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<IOnCallBack> mCallBacks=new CopyOnWriteArrayList<>();
 
     @android.support.annotation.Nullable
     @Override
@@ -32,6 +33,10 @@ public class SaleManager extends Service
         public void addSale(AIDL_Sale sale) throws RemoteException
         {
             mSales.add(sale);
+            for(IOnCallBack item :mCallBacks)
+            {
+                item.OnAddSale(sale.mId, sale.mName);
+            }
         }
 
         @Override
@@ -40,4 +45,11 @@ public class SaleManager extends Service
             return mSales;
         }
     }
+
+    //region callback interface
+    public static interface IOnCallBack
+    {
+        public void OnAddSale(int id,String name);
+    }
+    //endregion
 }

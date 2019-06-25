@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.linson.LSLibrary.AndroidHelper.LSBaseActivity;
 import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
+import com.linson.android.Model.Sale;
 import com.linson.android.hiandroid2.R;
 
 import java.util.ArrayList;
@@ -45,6 +46,33 @@ public class Index extends LSBaseActivity
 //        BlockQueueTest blockQueueTest=new BlockQueueTest();
 //        blockQueueTest.Start();
 
+        //readwrite();
+
+        listPractice();
+    }
+
+    private void listPractice()
+    {
+        List<Sale> sales=new LinkedList<>();
+        Sale sale=new Sale(1,"linson");
+        Sale sale1=new Sale(2, "tony");
+        sales.add(sale);
+        sales.add(sale1);
+        for(Sale item :sales)
+        {
+            LSComponentsHelper.LS_Log.Log_INFO(item.mName);
+        }
+
+        //是我sb了。这里只是把栈里面的元素的指针的指针设置为0.一个元素是否清空是看它是否引用为0.不要把c++的混进来。
+        sale1=null;
+        for(Sale item :sales)
+        {
+            LSComponentsHelper.LS_Log.Log_INFO(item.mName);
+        }
+    }
+
+    private void readwrite()
+    {
         try
         {
             SafeReadWriterCache<Integer, Integer> mycache = new SafeReadWriterCache<>();
@@ -63,10 +91,7 @@ public class Index extends LSBaseActivity
         {
             LSComponentsHelper.LS_Log.Log_Exception(e);
         }
-
-
     }
-
 
 
     private void productConsume()

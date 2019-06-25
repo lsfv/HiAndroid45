@@ -1,7 +1,6 @@
 package com.linson.android.hiandroid2.Services;
 
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
@@ -11,15 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
 import com.linson.android.DAL.AIDL.AIDL_Sale;
 import com.linson.android.DAL.AIDL.ISaleHandler;
-import com.linson.android.Model.Sale;
 import com.linson.android.hiandroid2.BackServices.SaleManager;
 import com.linson.android.hiandroid2.R;
-
 import java.util.List;
+
 
 public class SaleQuery extends AppCompatActivity implements View.OnClickListener
 {
@@ -115,8 +112,7 @@ public class SaleQuery extends AppCompatActivity implements View.OnClickListener
                   boolean con=false;
                   for(int i=0;i<res.size();i++)
                   {
-                      LSComponentsHelper.LS_Log.Log_INFO(res.get(i).mName+" ... "+name);
-                      if(res.get(i).mName==name)
+                      if(res.get(i).mName.trim().equals(name))
                       {
                           con=true;
                           break;
@@ -149,5 +145,4 @@ public class SaleQuery extends AppCompatActivity implements View.OnClickListener
         }
     }
     //endregion
-
 }

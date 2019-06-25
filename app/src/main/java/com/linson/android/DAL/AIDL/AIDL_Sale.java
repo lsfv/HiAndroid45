@@ -42,7 +42,7 @@ public class AIDL_Sale extends Sale implements Parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
-        mId=dest.readInt();
-        mName=dest.readString();
+        dest.writeInt(mId);
+        dest.writeString(mName);
     }
 }
