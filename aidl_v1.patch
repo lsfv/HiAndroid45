@@ -1,0 +1,2079 @@
+Index: app/src/main/aidl/com/linson/android/DAL/AIDL/Book.aidl
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/aidl/com/linson/android/DAL/AIDL/Book.aidl	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/aidl/com/linson/android/DAL/AIDL/Book.aidl	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,3 @@
++// Book.aidl
++package com.linson.android.DAL.AIDL;
++parcelable Book;
+\ No newline at end of file
+Index: app/src/main/aidl/com/linson/android/DAL/AIDL/IBookManager.aidl
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/aidl/com/linson/android/DAL/AIDL/IBookManager.aidl	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/aidl/com/linson/android/DAL/AIDL/IBookManager.aidl	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,11 @@
++// IBookManager.aidl
++package com.linson.android.DAL.AIDL;
++
++import com.linson.android.DAL.AIDL.Book;
++
++// Declare any non-default types here with import statements
++
++interface IBookManager {
++    void addBook(in Book book);
++    List<Book> getList();
++}
+Index: app/src/main/java/com/linson/android/DAL/AIDL/Book.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/DAL/AIDL/Book.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/java/com/linson/android/DAL/AIDL/Book.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,56 @@
++package com.linson.android.DAL.AIDL;
++
++import android.os.Parcel;
++import android.os.Parcelable;
++
++
++
++public class Book implements Parcelable
++{
++    public int mBookID;
++    public String mBookName;
++
++    public Book(int bookID,String bookName)
++    {
++        mBookID=bookID;
++        mBookName=bookName;
++    }
++
++    //region Add Parcelable
++    protected Book(Parcel in)
++    {
++        mBookID = in.readInt();
++        mBookName = in.readString();
++    }
++
++    public static final Creator<Book> CREATOR = new Creator<Book>()
++    {
++        @Override
++        public Book createFromParcel(Parcel in)
++        {
++            return new Book(in);
++        }
++
++        @Override
++        public Book[] newArray(int size)
++        {
++            return new Book[size];
++        }
++    };
++    //endregion
++
++    //region implement Parcelabel
++    @Override
++    public int describeContents()
++    {
++        return 0;
++    }
++
++    @Override
++    public void writeToParcel(Parcel dest, int flags)
++    {
++        dest.writeInt(mBookID);
++        dest.writeString(mBookName);
++    }
++    //endregion
++}
+\ No newline at end of file
+Index: app/src/main/java/com/linson/android/hiandroid2/BackServices/CaculateServices.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/hiandroid2/BackServices/CaculateServices.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/java/com/linson/android/hiandroid2/BackServices/CaculateServices.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,38 @@
++package com.linson.android.hiandroid2.BackServices;
++
++import android.app.Service;
++import android.content.Intent;
++import android.os.Binder;
++import android.os.IBinder;
++import android.support.annotation.NonNull;
++
++public class CaculateServices extends Service
++{
++    @android.support.annotation.Nullable
++    @Override
++    public IBinder onBind(Intent intent)
++    {
++        return new BinderCaculate(this);
++    }
++
++    public int add(int a,int b)
++    {
++        return a+b;
++    }
++
++
++    public static class BinderCaculate extends Binder
++    {
++        public CaculateServices mCaculateServices;
++
++        public BinderCaculate(@NonNull CaculateServices cs)
++        {
++            mCaculateServices=cs;
++        }
++
++        public int add(int a,int b)
++        {
++            return mCaculateServices.add(a, b);
++        }
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/linson/android/hiandroid2/Services/SingleServices.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/hiandroid2/Services/SingleServices.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/java/com/linson/android/hiandroid2/Services/SingleServices.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,111 @@
++package com.linson.android.hiandroid2.Services;
++
++import android.content.ComponentName;
++import android.content.Intent;
++import android.content.IntentFilter;
++import android.content.ServiceConnection;
++import android.os.IBinder;
++import android.support.v7.app.AppCompatActivity;
++import android.os.Bundle;
++import android.view.View;
++import android.widget.Button;
++import android.widget.EditText;
++
++import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
++import com.linson.android.hiandroid2.BackServices.CaculateServices;
++import com.linson.android.hiandroid2.R;
++import com.linson.android.hiandroid2.BackServices.CaculateServices.*;
++
++public class SingleServices extends AppCompatActivity implements View.OnClickListener
++{
++    private EditText mEditText3;
++    private Button mButton10;
++    private EditText mEditText;
++
++    //region  findcontrols and bind click event.  remember call me in fun:onCreate!!!
++    private void findControls()
++    {   //findControls
++        mEditText3 = (EditText) findViewById(R.id.editText3);
++        mButton10 = (Button) findViewById(R.id.button10);
++        mEditText = (EditText) findViewById(R.id.editText);
++
++        //set event handler
++        mButton10.setOnClickListener(this);
++    }
++
++    @Override
++    public void onClick(View v)
++    {
++        switch (v.getId())
++        {
++            case R.id.button10:
++            {
++                if(mConnectionCaculate!=null && mConnectionCaculate.mBinderCaculate!=null)
++                {
++                    int res=mConnectionCaculate.mBinderCaculate.add(6, 3);
++                    mButton10.setText("res:"+res);
++                }
++                break;
++            }
++            default:
++            {
++                break;
++            }
++        }
++    }
++    //endregion
++    //region functions of click event
++    //endregion
++
++    //member variable
++
++
++
++    private ConnectionCaculate mConnectionCaculate;
++    @Override
++    protected void onCreate(Bundle savedInstanceState)
++    {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_single_services);
++
++        findControls();
++        bindServices();
++    }
++
++    private void bindServices()
++    {
++        LSComponentsHelper.LS_Log.Log_INFO("bind services");
++        Intent intent=new Intent(this, CaculateServices.class);
++        startService(intent);
++        mConnectionCaculate=new ConnectionCaculate();
++        bindService(intent, mConnectionCaculate, BIND_AUTO_CREATE);
++    }
++
++    @Override
++    protected void onDestroy()
++    {
++        super.onDestroy();
++        unbindService(mConnectionCaculate);
++    }
++
++    //region connection
++    private class ConnectionCaculate implements ServiceConnection
++    {
++        public BinderCaculate mBinderCaculate;
++        @Override
++        public void onServiceConnected(ComponentName name, IBinder service)
++        {
++            if(service instanceof BinderCaculate)
++            {
++                mBinderCaculate=(BinderCaculate)service;
++            }
++        }
++
++        @Override
++        public void onServiceDisconnected(ComponentName name)
++        {
++
++        }
++    }
++    //endregion
++}
+\ No newline at end of file
+Index: app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/MyButton.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/MyButton.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/MyButton.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,50 @@
++package com.linson.android.hiandroid2.UI.myCustomView;
++
++import android.content.Context;
++import android.util.AttributeSet;
++import android.view.KeyEvent;
++import android.view.MotionEvent;
++import android.widget.Button;
++
++import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
++
++public class MyButton extends android.support.v7.widget.AppCompatButton
++{
++    public MyButton(Context context, AttributeSet attrs)
++    {
++        super(context, attrs);
++    }
++
++    @Override
++    public boolean onTouchEvent(MotionEvent event)
++    {
++        boolean res=false;
++        switch (event.getAction())
++        {
++            case MotionEvent.ACTION_DOWN:
++            {
++                res= true;
++                break;
++            }
++            case MotionEvent.ACTION_UP:
++            {
++                res= true;
++                break;
++            }
++        }
++
++        return res;
++    }
++
++
++    @Override
++    public boolean dispatchTouchEvent(MotionEvent ev)
++    {
++        LSComponentsHelper.LS_Log.Log_INFO(ev.toString());
++        boolean dispatch=super.dispatchTouchEvent(ev);
++        //dispatch=true;
++        //dispatch=false;
++        LSComponentsHelper.LS_Log.Log_INFO("return:"+dispatch);
++        return dispatch;
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/MyLayout.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/MyLayout.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/MyLayout.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,51 @@
++package com.linson.android.hiandroid2.UI.myCustomView;
++
++import android.content.Context;
++import android.support.constraint.ConstraintLayout;
++import android.util.AttributeSet;
++import android.view.GestureDetector;
++import android.view.KeyEvent;
++import android.view.MotionEvent;
++
++import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
++import com.linson.android.hiandroid2.R;
++
++public class MyLayout extends ConstraintLayout
++{
++    public MyLayout(Context context, AttributeSet attrs)
++    {
++        super(context, attrs);
++
++    }
++
++    //True if the event was handled, false otherwise.
++    @Override
++    public boolean onTouchEvent(MotionEvent event)
++    {
++        LSComponentsHelper.LS_Log.Log_INFO(event.toString());
++        boolean evetnok=super.onTouchEvent(event);
++        LSComponentsHelper.LS_Log.Log_INFO("return:"+evetnok);
++        return evetnok;
++    }
++
++    @Override
++    public boolean dispatchTouchEvent(MotionEvent ev)
++    {
++        LSComponentsHelper.LS_Log.Log_INFO(ev.toString());
++        boolean dispatch=super.dispatchTouchEvent(ev);
++        //dispatch=true;
++        //dispatch=false;
++        LSComponentsHelper.LS_Log.Log_INFO("return:"+dispatch);
++        return dispatch;
++    }
++
++    @Override
++    public boolean onInterceptTouchEvent(MotionEvent ev)
++    {
++        boolean intercept=super.onInterceptTouchEvent(ev);
++        //intercept=true;
++        //intercept=false;
++        LSComponentsHelper.LS_Log.Log_INFO("return:"+intercept+"."+ev.toString());
++        return intercept;
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/MyLayoutBig.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/MyLayoutBig.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/MyLayoutBig.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,47 @@
++package com.linson.android.hiandroid2.UI.myCustomView;
++
++import android.content.Context;
++import android.support.constraint.ConstraintLayout;
++import android.util.AttributeSet;
++import android.view.MotionEvent;
++
++import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
++
++public class MyLayoutBig extends ConstraintLayout
++{
++    public MyLayoutBig(Context context, AttributeSet attrs)
++    {
++        super(context, attrs);
++    }
++
++    //True if the event was handled, false otherwise.
++    @Override
++    public boolean onTouchEvent(MotionEvent event)
++    {
++        LSComponentsHelper.LS_Log.Log_INFO(event.toString());
++        boolean evetnok=super.onTouchEvent(event);
++        LSComponentsHelper.LS_Log.Log_INFO("return:"+evetnok);
++        return evetnok;
++    }
++
++    @Override
++    public boolean dispatchTouchEvent(MotionEvent ev)
++    {
++        LSComponentsHelper.LS_Log.Log_INFO(ev.toString());
++        boolean dispatch=super.dispatchTouchEvent(ev);
++        //dispatch=true;
++        //dispatch=false;
++        LSComponentsHelper.LS_Log.Log_INFO("return:"+dispatch);
++        return dispatch;
++    }
++
++    @Override
++    public boolean onInterceptTouchEvent(MotionEvent ev)
++    {
++        boolean intercept=super.onInterceptTouchEvent(ev);
++        //intercept=true;
++        //intercept=false;
++        LSComponentsHelper.LS_Log.Log_INFO("return:"+intercept+"."+ev.toString());
++        return intercept;
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/MySmallLayout.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/MySmallLayout.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/MySmallLayout.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,66 @@
++package com.linson.android.hiandroid2.UI.myCustomView;
++
++import android.content.Context;
++import android.os.Handler;
++import android.support.constraint.ConstraintLayout;
++import android.util.AttributeSet;
++import android.view.GestureDetector;
++import android.view.KeyEvent;
++import android.view.MotionEvent;
++
++import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
++
++public class MySmallLayout extends ConstraintLayout
++{
++    public MySmallLayout(Context context, AttributeSet attrs)
++    {
++        super(context, attrs);
++    }
++
++    //True if the event was handled, false otherwise.
++    @Override
++    public boolean onTouchEvent(MotionEvent event)
++    {
++        boolean res=false;
++        switch (event.getAction())
++        {
++            case MotionEvent.ACTION_DOWN:
++            {
++                res= true;
++                break;
++            }
++            case MotionEvent.ACTION_UP:
++            {
++                res= true;
++                break;
++            }
++        }
++
++        return res;
++//        LSComponentsHelper.LS_Log.Log_INFO(event.toString());
++//        boolean evetnok=super.onTouchEvent(event);
++//        LSComponentsHelper.LS_Log.Log_INFO("return:"+evetnok);
++//        return evetnok;
++    }
++
++    @Override
++    public boolean dispatchTouchEvent(MotionEvent ev)
++    {
++        LSComponentsHelper.LS_Log.Log_INFO(ev.toString());
++        boolean dispatch=super.dispatchTouchEvent(ev);
++        //dispatch=true;
++        //dispatch=false;
++        LSComponentsHelper.LS_Log.Log_INFO("return:"+dispatch);
++        return dispatch;
++    }
++
++    @Override
++    public boolean onInterceptTouchEvent(MotionEvent ev)
++    {
++        boolean intercept=super.onInterceptTouchEvent(ev);
++        //intercept=true;
++        //intercept=false;
++        LSComponentsHelper.LS_Log.Log_INFO("return:"+intercept+"."+ev.toString());
++        return intercept;
++    }
++}
+Index: app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/MyTextView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/MyTextView.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/MyTextView.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,39 @@
++package com.linson.android.hiandroid2.UI.myCustomView;
++
++import android.content.Context;
++import android.support.v7.widget.AppCompatTextView;
++import android.util.AttributeSet;
++import android.view.KeyEvent;
++import android.view.MotionEvent;
++
++import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
++
++public class MyTextView extends AppCompatTextView
++{
++    public MyTextView(Context context, AttributeSet attrs)
++    {
++        super(context, attrs);
++    }
++
++    @Override
++    public boolean onTouchEvent(MotionEvent event)
++    {
++        LSComponentsHelper.LS_Log.Log_INFO(event.toString());
++        boolean consume=super.onTouchEvent(event);
++        //dispatch=true;
++        //dispatch=false;
++        LSComponentsHelper.LS_Log.Log_INFO("return:"+consume);
++        return consume;
++    }
++
++    @Override
++    public boolean dispatchTouchEvent(MotionEvent ev)
++    {
++        LSComponentsHelper.LS_Log.Log_INFO(ev.toString());
++        boolean dispatch=super.dispatchTouchEvent(ev);
++        //dispatch=true;
++        //dispatch=false;
++        LSComponentsHelper.LS_Log.Log_INFO("return:"+dispatch);
++        return dispatch;
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/ScrollLayout.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/ScrollLayout.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/ScrollLayout.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,16 @@
++package com.linson.android.hiandroid2.UI.myCustomView;
++
++import android.content.Context;
++import android.support.constraint.ConstraintLayout;
++import android.util.AttributeSet;
++
++//拦截左右滑动
++public class ScrollLayout extends ConstraintLayout
++{
++    public ScrollLayout(Context context, AttributeSet attrs)
++    {
++        super(context, attrs);
++    }
++
++
++}
+\ No newline at end of file
+Index: app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/ScrollPage.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/ScrollPage.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/ScrollPage.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,83 @@
++package com.linson.android.hiandroid2.UI.myCustomView;
++
++import android.support.v7.app.AppCompatActivity;
++import android.os.Bundle;
++import android.telecom.Call;
++import android.text.method.ScrollingMovementMethod;
++import android.view.View;
++import android.widget.TextView;
++
++import com.linson.android.hiandroid2.R;
++
++public class ScrollPage extends AppCompatActivity implements View.OnClickListener
++{
++
++    private TextView mTvInbulid;
++    private ScrollTextView mMytextviewcc;
++
++
++
++
++    //region  findcontrols and bind click event.  remember call me in fun:onCreate!!!
++    private void findControls()
++    {   //findControls
++        mTvInbulid = (TextView) findViewById(R.id.tv_inbulid);
++        mMytextviewcc = (ScrollTextView) findViewById(R.id.mytextviewcc);
++
++        //set event handler
++        mTvInbulid.setScrollbarFadingEnabled(false);//总是显示bar
++        mTvInbulid.setMovementMethod(ScrollingMovementMethod.getInstance());
++        mTvInbulid.setText(mAricle);
++        mMytextviewcc.setIonScrollLeftRight(new ScrollHandler());
++    }
++
++    @Override
++    public void onClick(View v)
++    {
++        switch (v.getId())
++        {
++
++            default:
++            {
++                break;
++            }
++        }
++    }
++    //endregion
++    //region functions of click event
++    //endregion
++
++    //member variable
++    String mAricle="其实我一直准备写一篇关于Android事件分发机制的文章，从我的第一篇博客开始，就零零散散在好多地方使用到了Android事件分发的知识。也有好多朋友问过我各种问题，比如：onTouch和onTouchEvent有什么区别，又该如何使用？为什么给ListView引入了一个滑动菜单的功能，ListView就不能滚动了？为什么图片轮播器里的图片使用Button而不用ImageView？等等……对于这些问题，我并没有给出非常详细的回答，因为我知道如果想要彻底搞明白这些问题，掌握Android事件分发机制是必不可少的，而Android事件分发机制绝对不是三言两语就能说得清的\n" +
++            "--------------------- \n" +
++            "作者：guolin \n" +
++            "来源：CSDN \n" +
++            "原文：https://blog.csdn.net/guolin_blog/article/details/9097463 \n" +
++            "版权声明：本文为博主原创文章，转载请附上博文链接！";
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState)
++    {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_scroll_page);
++        findControls();
++    }
++
++    //region scroll
++    private class ScrollHandler implements ScrollTextView.IonScrollLeftRight
++    {
++        @Override
++        public void onScrollLeftOrRight(ScrollTextView who, boolean isLeft)
++        {
++            if(isLeft)
++            {
++                who.setText("left");
++            }
++            else
++            {
++                who.setText("right");
++            }
++        }
++    }
++    //endregion
++}
+\ No newline at end of file
+Index: app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/ScrollTextView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/ScrollTextView.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/ScrollTextView.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,129 @@
++package com.linson.android.hiandroid2.UI.myCustomView;
++
++import android.content.Context;
++import android.gesture.Gesture;
++import android.support.annotation.NonNull;
++import android.support.v7.widget.AppCompatTextView;
++import android.util.AttributeSet;
++import android.view.GestureDetector;
++import android.view.MotionEvent;
++
++import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
++
++public class ScrollTextView extends AppCompatTextView
++{
++    private GestureDetector mGestureDetector;
++    private int mLastAction=0;
++    private IonScrollLeftRight mIonScrollLeftRight;
++    public ScrollTextView(Context context, AttributeSet attrs)
++    {
++        super(context, attrs);
++        mGestureDetector=new GestureDetector(this.getContext(), new MyTouchListenHandler());
++    }
++
++
++    @Override
++    public boolean onTouchEvent(MotionEvent event)
++    {
++        boolean consume=mGestureDetector.onTouchEvent(event);
++        switch (event.getAction())
++        {
++            case MotionEvent.ACTION_UP:
++            {
++                LSComponentsHelper.LS_Log.Log_INFO("invode"+mLastAction);
++                if(mIonScrollLeftRight!=null)
++                {
++                    if (mLastAction == 1)//left .2right
++                    {
++                        mIonScrollLeftRight.onScrollLeftOrRight(this,true);
++                    }
++                    else if(mLastAction==2)
++                    {
++                        mIonScrollLeftRight.onScrollLeftOrRight(this,false);
++                    }
++                }
++                mLastAction=0;//up之后要清掉.
++                break;
++            }
++        }
++        return consume;
++        //return super.onTouchEvent(event);
++    }
++
++    public void setIonScrollLeftRight(@NonNull IonScrollLeftRight handler)
++    {
++        mIonScrollLeftRight=handler;
++    }
++
++    //region listener
++    private class MyTouchListenHandler implements GestureDetector.OnGestureListener
++    {
++        @Override
++        public boolean onDown(MotionEvent e)
++        {
++            return true;
++        }
++
++        @Override
++        public void onShowPress(MotionEvent e)
++        {
++
++        }
++
++        @Override
++        public boolean onSingleTapUp(MotionEvent e)
++        {
++            return false;
++        }
++
++        @Override
++        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
++        {
++            boolean bUpdown=Math.abs(distanceY)>Math.abs(distanceX)?true:false;
++            boolean bUpLeft=false;
++            if((bUpdown && distanceY>0) || (bUpdown==false && distanceX>0))
++            {
++                bUpLeft=true;
++            }
++            LSComponentsHelper.LS_Log.Log_INFO("is updown:"+bUpdown+". is upleft:"+bUpLeft);
++            if(bUpdown==false)
++            {
++                if(bUpLeft)
++                {
++                    mLastAction=1;//left
++                }
++                else
++                {
++                    mLastAction=2;//right
++                }
++                return true;
++            }
++            else
++            {
++                return false;
++            }
++        }
++
++        @Override
++        public void onLongPress(MotionEvent e)
++        {
++
++        }
++
++        @Override
++        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
++        {
++            return false;
++        }
++
++
++    }
++    //endregion
++
++    //region interface
++    public interface IonScrollLeftRight
++    {
++        public void onScrollLeftOrRight(ScrollTextView who,boolean isLeft);
++    }
++    //endregion
++}
+Index: app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/ScrollerPractice1.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/ScrollerPractice1.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/ScrollerPractice1.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,218 @@
++package com.linson.android.hiandroid2.UI.myCustomView;
++
++import android.os.AsyncTask;
++import android.support.constraint.ConstraintLayout;
++import android.support.v7.app.AppCompatActivity;
++import android.os.Bundle;
++import android.view.GestureDetector;
++import android.view.MotionEvent;
++import android.view.VelocityTracker;
++import android.view.View;
++import android.view.ViewConfiguration;
++import android.widget.Button;
++import android.widget.TextView;
++
++import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
++import com.linson.android.hiandroid2.R;
++
++public class ScrollerPractice1 extends AppCompatActivity implements View.OnClickListener
++{
++    //region difine controls. Auto generate don't modify
++    private Button mBtnShow3;
++    private ConstraintLayout mConstraintLayout;
++    private TextView mTextView6;
++    private Button mBtnShow;
++    private Button mBtnShow2;
++    private TextView mTvInfo;
++    private TextView mTvMsg;
++    private scroller1 mMytestview;
++    //endregion
++
++    //region  findcontrols and bind click event.  remember call me in fun:onCreate!!!
++    private void findControls()
++    {   //findControls
++        mBtnShow3 = (Button) findViewById(R.id.btn_show3);
++        mConstraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout);
++        mTextView6 = (TextView) findViewById(R.id.textView6);
++        mBtnShow = (Button) findViewById(R.id.btn_show);
++        mBtnShow2 = (Button) findViewById(R.id.btn_show2);
++        mTvInfo = (TextView) findViewById(R.id.tv_info);
++        mTvMsg = (TextView) findViewById(R.id.tv_msg);
++        mMytestview = (scroller1) findViewById(R.id.mytestview);
++
++        //set event handler
++        mBtnShow.setOnClickListener(this);
++        mBtnShow2.setOnClickListener(this);
++        mBtnShow3.setOnClickListener(this);
++    }
++
++    @Override
++    public void onClick(View v)
++    {
++        switch (v.getId())
++        {
++            case R.id.btn_show:
++            {
++                show();
++                break;
++            }
++            case R.id.btn_show2:
++            {
++                show2();
++                break;
++            }
++            case R.id.btn_show3:
++            {
++                show3();
++                break;
++            }
++            default:
++            {
++                break;
++            }
++        }
++    }
++    //endregion
++
++    //region functions of click event
++    private void show()
++    {
++        mTextView6.scrollBy(10, 10);
++    }
++    private void show2()
++    {
++        mTextView6.setTranslationX(mTextView6.getTranslationX()+10);
++        mTextView6.setTranslationY(mTextView6.getTranslationX()+10);
++    }
++    private void show3()
++    {
++        mMytestview.smoothScroll(100,200);
++    }
++    //endregion
++
++    //member variable
++    showtask myshowtask;
++    boolean mrun=true;
++    VelocityTracker velocityTracker;
++    GestureDetector mGestureDetector;
++    @Override
++    protected void onCreate(Bundle savedInstanceState)
++    {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_scroller_practice1);
++        findControls();
++        trackTextview();
++
++        LSComponentsHelper.LS_Log.Log_INFO("滑动最小距离:"+ViewConfiguration.get(this.getApplicationContext()).getScaledTouchSlop()+"");
++        mGestureDetector=new GestureDetector(this, new MyGestureListen());
++    }
++
++    @Override
++    public boolean onTouchEvent(MotionEvent event)
++    {
++        velocityTracker =VelocityTracker.obtain();
++        velocityTracker.addMovement(event);
++        velocityTracker.computeCurrentVelocity(1000);
++        //LSComponentsHelper.LS_Log.Log_INFO(velocityTracker.getXVelocity()+"."+velocityTracker.getYVelocity());
++
++        boolean res=mGestureDetector.onTouchEvent(event);
++        return res; //super.onTouchEvent(event);//default false;
++    }
++
++    private void trackTextview()
++    {
++        myshowtask=new showtask();
++        myshowtask.execute();
++    }
++
++    @Override
++    protected void onDestroy()
++    {
++        super.onDestroy();
++        try
++        {
++            mrun = false;
++            myshowtask.cancel(true);
++            myshowtask = null;
++            velocityTracker.clear();
++            velocityTracker.recycle();
++        } catch (Exception e)
++        {
++            LSComponentsHelper.LS_Log.Log_Exception(e);
++        }
++
++    }
++
++    //region asyntask
++    private  class showtask extends AsyncTask<Void,String,Void>
++    {
++        @Override
++        protected Void doInBackground(Void... voids)
++        {
++            while (mrun)
++            {
++                String tt="left:%d. top:%d  \n x:%f.   y:%f, \n tsltx:%f,   tslty:%f. \n ScrollX:%d  ScrollY%d.\n getScaleX:%f.";
++                String info=String.format(tt,mTextView6.getLeft(),mTextView6.getTop(), mTextView6.getX(),mTextView6.getY(),
++                        mTextView6.getTranslationX(),mTextView6.getTranslationY(),mTextView6.getScrollX(),mTextView6.getScrollY(),mTextView6.getScaleX());
++                publishProgress(info);
++                try
++                {
++                    Thread.sleep(500);
++                } catch (Exception e)
++                {
++                    LSComponentsHelper.LS_Log.Log_Exception(e);
++                }
++            }
++            return null;
++        }
++
++        @Override
++        protected void onProgressUpdate(String... values)
++        {
++            mTvInfo.setText(values[0]);
++        }
++    }
++    //endregion
++
++    //region gesture listener
++    public class MyGestureListen implements GestureDetector.OnGestureListener
++    {
++        @Override
++        public boolean onDown(MotionEvent e)
++        {
++            return true;
++        }
++
++        @Override
++        public void onShowPress(MotionEvent e)
++        {
++
++        }
++
++        @Override
++        public boolean onSingleTapUp(MotionEvent e)
++        {
++            LSComponentsHelper.LS_Log.Log_INFO("activity:single tapup");
++            return true;
++        }
++
++        @Override
++        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
++        {
++            return true;
++        }
++
++        @Override
++        public void onLongPress(MotionEvent e)
++        {
++
++        }
++
++        @Override
++        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
++        {
++            return true;
++        }
++    }
++    //endregion
++}
+\ No newline at end of file
+Index: app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/index.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/index.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/index.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,71 @@
++package com.linson.android.hiandroid2.UI.myCustomView;
++
++import android.support.v7.app.AppCompatActivity;
++import android.os.Bundle;
++import android.view.View;
++import android.widget.Button;
++
++import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
++import com.linson.android.hiandroid2.R;
++
++public class index extends AppCompatActivity implements View.OnClickListener
++{
++
++    private Button mBtnEvent;
++    private Button mBtnScrolleer2;
++    private Button mBtnScrolleer1;
++
++    //region  findcontrols and bind click event.  remember call me in fun:onCreate!!!
++    private void findControls()
++    {   //findControls
++        mBtnEvent = (Button) findViewById(R.id.btn_event);
++        mBtnScrolleer2 = (Button) findViewById(R.id.btn_scrolleer2);
++        mBtnScrolleer1 = (Button) findViewById(R.id.btn_scrolleer1);
++
++        //set event handler
++        mBtnEvent.setOnClickListener(this);
++        mBtnScrolleer2.setOnClickListener(this);
++        mBtnScrolleer1.setOnClickListener(this);
++    }
++
++    @Override
++    public void onClick(View v)
++    {
++        switch (v.getId())
++        {
++            case R.id.btn_scrolleer1:
++            {
++                LSComponentsHelper.LS_Activity.startActivity(this, ScrollerPractice1.class);
++                break;
++            }
++            case R.id.btn_event:
++            {
++                LSComponentsHelper.LS_Activity.startActivity(this, motionEventPractice.class);
++                break;
++            }
++            case R.id.btn_scrolleer2:
++            {
++                LSComponentsHelper.LS_Activity.startActivity(this, ScrollPage.class);
++                break;
++            }
++            default:
++            {
++                break;
++            }
++        }
++    }
++    //endregion
++
++    //region functions of click event
++    //endregion
++
++    //member variable
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState)
++    {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_index13);
++        findControls();
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/motionEventPractice.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/motionEventPractice.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/motionEventPractice.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,94 @@
++package com.linson.android.hiandroid2.UI.myCustomView;
++
++import android.support.v7.app.AppCompatActivity;
++import android.os.Bundle;
++import android.view.GestureDetector;
++import android.view.KeyEvent;
++import android.view.MotionEvent;
++import android.view.View;
++
++import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
++import com.linson.android.hiandroid2.R;
++
++public class motionEventPractice extends AppCompatActivity implements View.OnClickListener
++{
++
++    private MyLayout mLayout1;
++    private MySmallLayout mLayout2;
++    private MyButton mButton13;
++    private MyTextView mTextView9;
++
++    //region  findcontrols and bind click event.  remember call me in fun:onCreate!!!
++    private void findControls()
++    {   //findControls
++        mLayout1 = (MyLayout) findViewById(R.id.layout1);
++        mLayout2 = (MySmallLayout) findViewById(R.id.layout2);
++        mButton13 = (MyButton) findViewById(R.id.button13);
++        mTextView9 = (MyTextView) findViewById(R.id.textView9);
++
++        //set event handler
++        mButton13.setOnClickListener(this);
++        //mLayout1.setOnClickListener(this);
++        //mLayout2.setOnClickListener(this);
++    }
++
++    @Override
++    public void onClick(View v)
++    {
++        switch (v.getId())
++        {
++            case R.id.layout2:
++            {
++                LSComponentsHelper.LS_Log.Log_INFO("layoutsmall click");
++                break;
++            }
++            case R.id.layout1:
++            {
++                LSComponentsHelper.LS_Log.Log_INFO("layoutmiddle click");
++                break;
++            }
++            case R.id.button13:
++            {
++                LSComponentsHelper.LS_Log.Log_INFO("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!btn click");
++                break;
++            }
++            default:
++            {
++                break;
++            }
++        }
++    }
++    //endregion
++
++    //region functions of click event
++
++
++    //endregion
++
++    //member variable
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState)
++    {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_motion_event_practice);
++        findControls();
++    }
++
++
++    @Override
++    public boolean onTouchEvent(MotionEvent event)
++    {
++        LSComponentsHelper.LS_Log.Log_INFO(event.toString());
++        return super.onTouchEvent(event);
++    }
++
++    @Override
++    public boolean dispatchTouchEvent(MotionEvent ev)
++    {
++        LSComponentsHelper.LS_Log.Log_INFO(ev.toString());
++        return super.dispatchTouchEvent(ev);
++    }
++
++
++}
+\ No newline at end of file
+Index: app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/scroller1.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/scroller1.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/java/com/linson/android/hiandroid2/UI/myCustomView/scroller1.java	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,52 @@
++package com.linson.android.hiandroid2.UI.myCustomView;
++
++import android.content.Context;
++import android.util.AttributeSet;
++import android.view.MotionEvent;
++import android.view.View;
++import android.widget.LinearLayout;
++import android.widget.Scroller;
++import android.widget.TextView;
++
++import okhttp3.Interceptor;
++
++//scroller 是指内容滑动。做一些效果的。如划页。把内容移动下，作为一个滑动的效果。我去。有意思吗。没意思。
++//这里是一个textview.测试默认的情况下是不处理单击事件的。
++public class scroller1 extends android.support.v7.widget.AppCompatTextView
++{
++    Scroller mScroller = new Scroller(getContext());
++    public scroller1(Context context, @android.support.annotation.Nullable AttributeSet attrs)
++    {
++        super(context, attrs);
++    }
++
++    public void smoothScroll(int destX, int destY) {
++        int scrollX = getScrollX();
++        int deltaX = destX - scrollX;
++        mScroller.startScroll(scrollX, 0, deltaX, 0, 5000);
++        invalidate();
++    }
++
++    @Override
++    public void computeScroll()
++    {
++        super.computeScroll();
++        if (mScroller.computeScrollOffset()) {
++            scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
++            postInvalidate();
++        }
++    }
++
++    @Override
++    public boolean dispatchTouchEvent(MotionEvent event)
++    {
++        return super.dispatchTouchEvent(event);
++    }
++
++
++    @Override
++    public boolean onTouchEvent(MotionEvent event)
++    {
++        return super.onTouchEvent(event);
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_index13.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_index13.xml	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/res/layout/activity_index13.xml	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,49 @@
++<?xml version="1.0" encoding="utf-8"?>
++<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".UI.myCustomView.index">
++
++    <Button
++        android:id="@+id/btn_event"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:layout_marginTop="68dp"
++        android:layout_marginEnd="8dp"
++        android:text="Event"
++        android:textAllCaps="false"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <Button
++        android:id="@+id/btn_scrolleer2"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:layout_marginTop="132dp"
++        android:layout_marginEnd="8dp"
++        android:text="Scroll page"
++        android:textAllCaps="false"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <Button
++        android:id="@+id/btn_scrolleer1"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:layout_marginTop="8dp"
++        android:layout_marginEnd="8dp"
++        android:text="Scroller1"
++        android:textAllCaps="false"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++</android.support.constraint.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_motion_event_practice.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_motion_event_practice.xml	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/res/layout/activity_motion_event_practice.xml	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,60 @@
++<?xml version="1.0" encoding="utf-8"?>
++<com.linson.android.hiandroid2.UI.myCustomView.MyLayoutBig xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".UI.myCustomView.motionEventPractice">
++
++    <com.linson.android.hiandroid2.UI.myCustomView.MyLayout
++        android:id="@+id/layout1"
++        android:layout_width="0dp"
++        android:layout_height="0dp"
++        android:layout_marginStart="20dp"
++        android:layout_marginTop="20dp"
++        android:layout_marginEnd="20dp"
++        android:layout_marginBottom="20dp"
++        android:background="@drawable/round_transparent"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent">
++
++        <com.linson.android.hiandroid2.UI.myCustomView.MySmallLayout
++            android:id="@+id/layout2"
++            android:layout_width="0dp"
++            android:layout_height="0dp"
++            android:layout_marginStart="50dp"
++            android:layout_marginTop="50dp"
++            android:layout_marginEnd="50dp"
++            android:layout_marginBottom="50dp"
++            android:background="@drawable/round_transparent"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent">
++
++            <com.linson.android.hiandroid2.UI.myCustomView.MyButton
++                android:id="@+id/button13"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginStart="8dp"
++                android:layout_marginTop="8dp"
++                android:text="Button"
++                app:layout_constraintStart_toStartOf="parent"
++                app:layout_constraintTop_toTopOf="parent" />
++
++            <com.linson.android.hiandroid2.UI.myCustomView.MyTextView
++                android:id="@+id/textView9"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginStart="8dp"
++                android:layout_marginBottom="8dp"
++                android:text="TextView"
++                app:layout_constraintBottom_toBottomOf="parent"
++                app:layout_constraintStart_toStartOf="parent" />
++        </com.linson.android.hiandroid2.UI.myCustomView.MySmallLayout>
++
++    </com.linson.android.hiandroid2.UI.myCustomView.MyLayout>
++
++</com.linson.android.hiandroid2.UI.myCustomView.MyLayoutBig>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_scroll_page.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_scroll_page.xml	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/res/layout/activity_scroll_page.xml	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,40 @@
++<?xml version="1.0" encoding="utf-8"?>
++<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".UI.myCustomView.ScrollPage">
++
++    <TextView
++        android:id="@+id/tv_inbulid"
++        android:layout_width="0dp"
++        android:layout_height="100dp"
++        android:layout_marginStart="8dp"
++        android:layout_marginTop="8dp"
++        android:layout_marginEnd="8dp"
++        android:background="@drawable/round_transparent"
++        android:maxLines="5"
++        android:scrollbars="vertical"
++        android:singleLine="false"
++        android:text="TextView"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++
++    <com.linson.android.hiandroid2.UI.myCustomView.ScrollTextView
++        android:id="@+id/mytextviewcc"
++        android:layout_width="0dp"
++        android:layout_height="76dp"
++        android:layout_marginStart="8dp"
++        android:layout_marginTop="120dp"
++        android:layout_marginEnd="8dp"
++        android:background="@drawable/round_transparent"
++        android:text="ok"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="1.0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++</android.support.constraint.ConstraintLayout>
++
+Index: app/src/main/res/layout/activity_scroller_practice1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_scroller_practice1.xml	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/res/layout/activity_scroller_practice1.xml	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,103 @@
++<?xml version="1.0" encoding="utf-8"?>
++<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".UI.myCustomView.ScrollerPractice1" >
++
++    <Button
++        android:id="@+id/btn_show3"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:layout_marginBottom="108dp"
++        android:text="myscroll"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintStart_toStartOf="parent" />
++
++    <android.support.constraint.ConstraintLayout
++        android:id="@+id/constraintLayout"
++        android:layout_width="0dp"
++        android:layout_height="0dp"
++        android:layout_marginStart="10dp"
++        android:layout_marginTop="10dp"
++        android:layout_marginEnd="50dp"
++        android:layout_marginBottom="40dp"
++        android:background="@drawable/round_transparent"
++        app:layout_constraintBottom_toTopOf="@+id/tv_info"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent"
++        app:layout_constraintVertical_bias="0.479">
++
++        <TextView
++            android:id="@+id/textView6"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginStart="100dp"
++            android:layout_marginTop="100dp"
++            android:background="@drawable/round_transparent"
++            android:text="hi.show time"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent" />
++
++    </android.support.constraint.ConstraintLayout>
++
++
++    <Button
++        android:id="@+id/btn_show"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:layout_marginBottom="8dp"
++        android:text="scroll"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintStart_toStartOf="parent" />
++
++    <Button
++        android:id="@+id/btn_show2"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:layout_marginBottom="60dp"
++        android:text="transfor"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintStart_toStartOf="parent" />
++
++    <TextView
++        android:id="@+id/tv_info"
++        android:layout_width="250dp"
++        android:layout_height="114dp"
++        android:layout_marginStart="8dp"
++        android:layout_marginBottom="32dp"
++        android:background="@drawable/round_transparent"
++        android:text="TextView"
++        app:layout_constraintBottom_toBottomOf="@+id/btn_show"
++        app:layout_constraintStart_toEndOf="@+id/btn_show" />
++
++    <TextView
++        android:id="@+id/tv_msg"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:layout_marginTop="8dp"
++        android:background="@drawable/round_transparent"
++        android:text="TextView"
++        app:layout_constraintStart_toStartOf="@+id/constraintLayout"
++        app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
++
++    <com.linson.android.hiandroid2.UI.myCustomView.scroller1
++        android:id="@+id/mytestview"
++        android:layout_width="100dp"
++        android:layout_height="100dp"
++        android:layout_marginStart="30dp"
++        android:layout_marginTop="30dp"
++        android:background="@drawable/round_transparent"
++        android:gravity="center"
++        android:text="aaa"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent"></com.linson.android.hiandroid2.UI.myCustomView.scroller1>
++
++</android.support.constraint.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_single_services.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_single_services.xml	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
++++ app/src/main/res/layout/activity_single_services.xml	(revision 13d2ec2baf6672eb902fbfaf2d2f8330a7238360)
+@@ -0,0 +1,42 @@
++<?xml version="1.0" encoding="utf-8"?>
++<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".Services.SingleServices">
++
++    <EditText
++        android:id="@+id/editText3"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:layout_marginTop="8dp"
++        android:ems="10"
++        android:inputType="number"
++        android:text="1"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/editText" />
++
++    <Button
++        android:id="@+id/button10"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:layout_marginTop="8dp"
++        android:text="Button"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <EditText
++        android:id="@+id/editText"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:layout_marginTop="8dp"
++        android:ems="10"
++        android:inputType="number"
++        android:text="0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/button10" />
++</android.support.constraint.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(date 1560925908000)
++++ app/src/main/AndroidManifest.xml	(date 1561378868000)
+@@ -74,10 +74,24 @@
+         <activity android:name=".Services.Index" />
+         <activity android:name=".Services.HandlerPractice" />
+         <activity android:name=".Services.AsyncTaskPractice" />
+-        <activity android:name=".Services.DownloadService"></activity>
++        <activity android:name=".Services.DownloadService" />
+ 
+-        <service android:name=".BackServices.DownloadServices" android:enabled="true" android:exported="true"></service>
++        <service
++            android:name=".BackServices.DownloadServices"
++            android:enabled="true"
++            android:exported="true" />
+ 
++       <service
++        android:name=".BackServices.CaculateServices"
++        android:enabled="true"
++        android:exported="true"
++        android:process=":Caculate"/>
++
++        <activity android:name=".UI.myCustomView.index" />
++        <activity android:name=".UI.myCustomView.ScrollerPractice1" />
++        <activity android:name=".UI.myCustomView.motionEventPractice" />
++        <activity android:name=".UI.myCustomView.ScrollPage" />
++        <activity android:name=".Services.SingleServices" ></activity>
+     </application>
+ 
+ </manifest>
+\ No newline at end of file
+Index: app/src/main/java/com/linson/LSLibrary/AndroidHelper/LSComponentsHelper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/LSLibrary/AndroidHelper/LSComponentsHelper.java	(date 1560925908000)
++++ app/src/main/java/com/linson/LSLibrary/AndroidHelper/LSComponentsHelper.java	(date 1561378868000)
+@@ -61,7 +61,7 @@
+ 
+ 
+     //global define
+-    public static String LOGTAG="MYCUSTOM";
++    public static String LOGTAG="MYCUSTOM~!@";
+     public interface VoidHandler
+     {
+         public void doti();
+@@ -164,7 +164,7 @@
+     {
+         public static void Log_INFO(String msg)
+         {
+-            Log.i(LOGTAG, msg);
++            Log.i(LOGTAG, getAutoJumpLogInfos()+" : "+msg);
+         }
+         public static void Log_DEBUG(String msg)
+         {
+@@ -176,11 +176,22 @@
+         }
+         public static void Log_Exception(Exception e)
+         {
+-            Log.i(LOGTAG, e.toString());
++            Log.i(LOGTAG, getAutoJumpLogInfos()+" : "+e.toString());
+         }
+-        public static void Log_Exception(Exception e,String prefix)
+-        {
+-            Log.i(LOGTAG,prefix+"."+ e.toString());
++        public static void Log_Exception(Exception e,String prefix) { Log.i(LOGTAG,prefix+"."+ e.toString()); }
++
++        private static String getAutoJumpLogInfos() {
++            String[] infos = new String[]{"", "", ""};
++            StackTraceElement[] elements = Thread.currentThread().getStackTrace();
++            if (elements.length < 5) {
++                return "";
++            } else {
++                infos[0] = elements[4].getClassName().substring(
++                        elements[4].getClassName().lastIndexOf(".") + 1);
++                infos[1] = " ["+elements[4].getMethodName() + "].";
++                infos[2] = " Line:" +elements[4].getLineNumber() + "";
++                return infos[0]+infos[1]+infos[2];
++            }
+         }
+     }
+ 
+Index: app/src/main/java/com/linson/android/hiandroid2/Services/Index.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/hiandroid2/Services/Index.java	(date 1560925908000)
++++ app/src/main/java/com/linson/android/hiandroid2/Services/Index.java	(date 1561378868000)
+@@ -10,14 +10,19 @@
+ 
+ public class Index extends AppCompatActivity implements View.OnClickListener
+ {
++    private Button mBtnSingle;
+     private Button mBtnDownloadservices;
+     private Button mBtnHandler3;
+     private Button mBtnAsync;
+     private Button mBtnHandler;
+ 
++
++
++
+     //region  controls and click event
+     private void findControls()
+     {
++        mBtnSingle = (Button) findViewById(R.id.btn_single);
+         mBtnDownloadservices = (Button) findViewById(R.id.btn_downloadservices);
+         mBtnHandler3 = (Button) findViewById(R.id.btn_handler3);
+         mBtnAsync = (Button) findViewById(R.id.btn_async);
+@@ -27,6 +32,7 @@
+         mBtnHandler3.setOnClickListener(this);
+         mBtnAsync.setOnClickListener(this);
+         mBtnHandler.setOnClickListener(this);
++        mBtnSingle.setOnClickListener(this);
+     }
+ 
+     @Override
+@@ -47,6 +53,12 @@
+             case R.id.btn_downloadservices:
+             {
+                 LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Services.DownloadService.class);
++                break;
++            }
++            case R.id.btn_single:
++            {
++                LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Services.SingleServices.class);
++                break;
+             }
+             default:
+             {
+Index: app/src/main/java/com/linson/android/hiandroid2/UI/Index.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/hiandroid2/UI/Index.java	(date 1560925908000)
++++ app/src/main/java/com/linson/android/hiandroid2/UI/Index.java	(date 1561378868000)
+@@ -7,9 +7,12 @@
+ import com.linson.LSLibrary.AndroidHelper.LSBaseActivity;
+ import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
+ import com.linson.android.hiandroid2.R;
++import com.linson.android.hiandroid2.UI.myCustomView.*;
+ 
+ public class Index extends LSBaseActivity implements View.OnClickListener
+ {
++    private Button mBtnAdvanceview;
++    private Button mBtnUi6;
+     private Button mBtnUi5;
+     private Button mBtnUi4;
+     private Button mBtnUi3;
+@@ -17,6 +20,9 @@
+     private Button mBtnUi;
+     private Button mBtnUi1;
+ 
++
++
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState)
+     {
+@@ -28,6 +34,8 @@
+ 
+     private void findcontrols()
+     {
++        mBtnAdvanceview = (Button) findViewById(R.id.btn_advanceview);
++        mBtnUi6 = (Button) findViewById(R.id.btn_ui6);
+         mBtnUi5 = (Button) findViewById(R.id.btn_ui5);
+         mBtnUi4 = (Button) findViewById(R.id.btn_ui4);
+         mBtnUi3 = (Button) findViewById(R.id.btn_ui3);
+@@ -41,6 +49,7 @@
+         mBtnUi3.setOnClickListener(this);
+         mBtnUi4.setOnClickListener(this);
+         mBtnUi5.setOnClickListener(this);
++        mBtnAdvanceview.setOnClickListener(this);
+     }
+ 
+     @Override
+@@ -77,6 +86,11 @@
+             {
+                 LSComponentsHelper.startActivity(this, customView.class);
+                 break;
++            }
++            case R.id.btn_advanceview:
++            {
++                LSComponentsHelper.startActivity(this,index.class);
++                break;
+             }
+         }
+     }
+Index: app/src/main/java/com/linson/android/hiandroid2/UI/customView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/linson/android/hiandroid2/UI/customView.java	(date 1560925908000)
++++ app/src/main/java/com/linson/android/hiandroid2/UI/customView.java	(date 1561378868000)
+@@ -1,17 +1,68 @@
+ package com.linson.android.hiandroid2.UI;
+ 
++import android.support.v4.view.GestureDetectorCompat;
+ import android.support.v7.app.AppCompatActivity;
+ import android.os.Bundle;
++import android.view.GestureDetector;
++import android.view.MotionEvent;
++import android.view.VelocityTracker;
+ import android.view.View;
++import android.widget.Scroller;
++import android.widget.TextView;
+ 
+ import com.linson.LSLibrary.AndroidHelper.LSBaseActivity;
+ import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
+ import com.linson.LSLibrary.CustomUI.LSCircleImagePlus;
+ import com.linson.android.hiandroid2.R;
++import com.linson.android.hiandroid2.UI.myCustomView.scroller1;
+ 
+ public class customView extends LSBaseActivity implements View.OnClickListener
+ {
+     private LSCircleImagePlus mLSCircleImage;
++    private scroller1 mTestv;
++    private TextView mTvMessage;
++
++
++
++
++
++    GestureDetectorCompat gestureDetector;
++
++    @Override
++    public boolean onTouchEvent(MotionEvent event)
++    {
++
++        //gestureDetector.onTouchEvent(event);
++
++//        switch (event.getAction())
++//        {
++//            case MotionEvent.ACTION_DOWN:
++//                // 手指按下
++//                LSComponentsHelper.LS_Log.Log_INFO("ACTION_DOWN");
++//                break;
++//            case MotionEvent.ACTION_MOVE:
++//                VelocityTracker velocityTracker=VelocityTracker.obtain();
++//                velocityTracker.addMovement(event);
++//                velocityTracker.computeCurrentVelocity(10);
++//                //LSComponentsHelper.LS_Log.Log_INFO(velocityTracker.getXVelocity()+"");
++//                // 手指移动
++//                //LSComponentsHelper.LS_Log.Log_INFO("ACTION_MOVE");
++//                break;
++//            case MotionEvent.ACTION_UP:
++//                // 手指抬起
++//                LSComponentsHelper.LS_Log.Log_INFO("ACTION_UP");
++//                break;
++//            case MotionEvent.ACTION_CANCEL:
++//                // 事件被拦截
++//                LSComponentsHelper.LS_Log.Log_INFO("ACTION_CANCEL");
++//                break;
++//            case MotionEvent.ACTION_OUTSIDE:
++//                // 超出区域
++//                LSComponentsHelper.LS_Log.Log_INFO("ACTION_OUTSIDE");
++//                break;
++//        }
++        return super.onTouchEvent(event);
++    }
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState)
+@@ -20,11 +71,16 @@
+         setContentView(R.layout.activity_custom_view);
+ 
+         findcontrols();
++        gestureDetector=new GestureDetectorCompat(this,new gesturelisten());
+     }
+ 
+     private void findcontrols()
+     {
+         mLSCircleImage = (LSCircleImagePlus) findViewById(R.id.LSCircleImage);
++        mTestv = (scroller1) findViewById(R.id.testv);
++        mTvMessage = (TextView) findViewById(R.id.tv_message);
++
++
+         mLSCircleImage.setOnClickListener(this);
+     }
+ 
+@@ -35,9 +91,64 @@
+         {
+             case R.id.LSCircleImage:
+             {
+-                LSComponentsHelper.Log_INFO("click:");
++                mTestv.scrollBy(3,3);
++                mTvMessage.scrollBy(3, 4);
++                String msg=String.format("left:%d.x:%f.y:%f,tsltx:%f,tslty:%f.scrollx:%d.scalex%f",mTvMessage.getLeft(), mTvMessage.getX(),mTvMessage.getY(),
++                        mTvMessage.getTranslationX(),mTvMessage.getTranslationY(),mTvMessage.getScrollX(),mTvMessage.getScaleX());
++                LSComponentsHelper.Log_INFO("click:"+msg);
++
++                   // mTestv.smoothScrollTo(300, 10);
++
++
+                 break;
+             }
+         }
+     }
++
++
++    //region gesture listen
++    private static class gesturelisten implements GestureDetector.OnGestureListener
++    {
++        @Override
++        public boolean onDown(MotionEvent e)
++        {
++            return true;
++        }
++
++        @Override
++        public void onShowPress(MotionEvent e)
++        {
++
++        }
++
++        @Override
++        public boolean onSingleTapUp(MotionEvent e)
++        {
++            LSComponentsHelper.LS_Log.Log_INFO("single click");
++            return true;
++        }
++
++        @Override
++        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
++        {
++            return true;
++        }
++
++        @Override
++        public void onLongPress(MotionEvent e)
++        {
++
++        }
++
++        @Override
++        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
++        {
++            return true;
++        }
++
++
++    }
++
++    //endregion
++
+ }
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_custom_view.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_custom_view.xml	(date 1560925908000)
++++ app/src/main/res/layout/activity_custom_view.xml	(date 1561378868000)
+@@ -4,7 +4,10 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    tools:context=".UI.customView">
++    tools:context=".UI.customView"
++    android:layout_marginLeft="3px"
++    android:layout_marginTop="4px"
++    >
+ 
+     <com.linson.LSLibrary.CustomUI.LSCircleImagePlus
+         android:id="@+id/LSCircleImage"
+@@ -14,4 +17,28 @@
+         android:layout_marginTop="8dp"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
++
++    <com.linson.android.hiandroid2.UI.myCustomView.scroller1
++        android:id="@+id/testv"
++
++        android:layout_width="200dp"
++        android:layout_height="100dp"
++        android:layout_marginStart="88dp"
++        android:layout_marginBottom="172dp"
++        android:background="@drawable/round_transparent"
++        android:gravity="center"
++        android:text="hiok"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintStart_toStartOf="parent" />
++
++    <TextView
++        android:id="@+id/tv_message"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="200dp"
++        android:layout_marginTop="30dp"
++        android:layout_marginLeft="4dp"
++        android:text="TextView"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
+ </android.support.constraint.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_index12.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_index12.xml	(date 1560925908000)
++++ app/src/main/res/layout/activity_index12.xml	(date 1561378868000)
+@@ -6,6 +6,20 @@
+     android:layout_height="match_parent"
+     tools:context=".Services.Index">
+ 
++    <Button
++        android:id="@+id/btn_single"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:layout_marginTop="72dp"
++        android:layout_marginEnd="8dp"
++        android:text="singleProcess Services"
++        android:textAllCaps="false"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/btn_handler3" />
++
+     <Button
+         android:id="@+id/btn_downloadservices"
+         android:layout_width="0dp"
+Index: app/src/main/res/layout/activity_index4.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_index4.xml	(date 1560925908000)
++++ app/src/main/res/layout/activity_index4.xml	(date 1561378868000)
+@@ -6,6 +6,17 @@
+     android:layout_height="match_parent"
+     tools:context=".UI.Index">
+ 
++    <Button
++        android:id="@+id/btn_advanceview"
++        android:layout_width="344dp"
++        android:layout_height="44dp"
++        android:layout_marginStart="8dp"
++        android:layout_marginTop="328dp"
++        android:text="advance view"
++        android:textAllCaps="false"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
+     <Button
+         android:id="@+id/btn_ui6"
+         android:layout_width="344dp"

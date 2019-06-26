@@ -10,6 +10,7 @@ import com.linson.android.hiandroid2.R;
 
 public class Index extends AppCompatActivity implements View.OnClickListener
 {
+    private Button mBtnSocket;
     private Button mBtnSingle;
     private Button mBtnDownloadservices;
     private Button mBtnHandler3;
@@ -20,12 +21,10 @@ public class Index extends AppCompatActivity implements View.OnClickListener
 
 
 
-
-
-
     //region  controls and click event
     private void findControls()
     {
+        mBtnSocket = (Button) findViewById(R.id.btn_Socket);
         mBtnSingle = (Button) findViewById(R.id.btn_single);
         mBtnDownloadservices = (Button) findViewById(R.id.btn_downloadservices);
         mBtnHandler3 = (Button) findViewById(R.id.btn_handler3);
@@ -39,6 +38,7 @@ public class Index extends AppCompatActivity implements View.OnClickListener
         mBtnHandler.setOnClickListener(this);
         mBtnSingle.setOnClickListener(this);
         mBtnAIDL.setOnClickListener(this);
+        mBtnSocket.setOnClickListener(this);
     }
 
     @Override
@@ -69,6 +69,11 @@ public class Index extends AppCompatActivity implements View.OnClickListener
             case R.id.btn_AIDL:
             {
                 LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Services.SaleQuery.class);
+                break;
+            }
+            case R.id.btn_Socket:
+            {
+                LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Services.SocketPracice.class);
                 break;
             }
             default:

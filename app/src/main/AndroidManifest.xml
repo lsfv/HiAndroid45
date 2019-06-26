@@ -84,19 +84,25 @@
             android:name=".BackServices.CaculateServices"
             android:enabled="true"
             android:exported="true" />
-
+        <service
+            android:name=".BackServices.SocketManager"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":socket" />
         <service
             android:name=".BackServices.SaleManager"
             android:enabled="true"
-            android:process=":saleManager"
-            android:exported="true" />
+            android:exported="true"
+            android:process=":saleManager" />
 
         <activity android:name=".UI.myCustomView.index" />
         <activity android:name=".UI.myCustomView.ScrollerPractice1" />
         <activity android:name=".UI.myCustomView.motionEventPractice" />
         <activity android:name=".UI.myCustomView.ScrollPage" />
         <activity android:name=".Services.SingleServices" />
-        <activity android:name=".Services.SaleQuery"></activity>
+        <activity android:name=".Services.SaleQuery" />
+        <activity android:name=".Services.SocketPracice" />
+        <activity android:name=".Weather.Index"></activity>
     </application>
 
 </manifest>
