@@ -4,9 +4,12 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 
+import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
 import com.linson.android.DAL.AIDL.AIDL_Sale;
+import com.linson.android.DAL.AIDL.IOnCallBack;
 import com.linson.android.DAL.AIDL.ISaleHandler;
 import com.linson.android.Model.Sale;
 
@@ -16,7 +19,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class SaleManager extends Service
 {
     private CopyOnWriteArrayList<AIDL_Sale> mSales=new CopyOnWriteArrayList<>();
-    private CopyOnWriteArrayList<IOnCallBack> mCallBacks=new CopyOnWriteArrayList<>();
+    private RemoteCallbackList<IOnCallBack> mCallBacks=new RemoteCallbackList<>();
 
     @android.support.annotation.Nullable
     @Override
@@ -33,10 +36,21 @@ public class SaleManager extends Service
         public void addSale(AIDL_Sale sale) throws RemoteException
         {
             mSales.add(sale);
-            for(IOnCallBack item :mCallBacks)
+//            for(IOnCallBack item :mCallBacks)
+//            {
+//                item.OnAddSale(sale.mId, sale.mName);
+//            }
+            final int callbackSum=mCallBacks.beginBroadcast();
+            for(int i=0;i<callbackSum;i++)
             {
-                item.OnAddSale(sale.mId, sale.mName);
+                IOnCallBack item= mCallBacks.getBroadcastItem(i);
+                if(item!=null)
+                {
+                    item.OnAddSale(sale.mId, sale.mName);
+                }
             }
+
+            mCallBacks.finishBroadcast();
         }
 
         @Override
@@ -44,12 +58,19 @@ public class SaleManager extends Service
         {
             return mSales;
         }
+
+        @Override
+        public void register(IOnCallBack hander) throws RemoteException
+        {
+            mCallBacks.register(hander);
+        }
+
+        @Override
+        public void unRegister(IOnCallBack hander) throws RemoteException
+        {
+           boolean res= mCallBacks.unregister(hander);
+            LSComponentsHelper.LS_Log.Log_INFO("server, delete:"+res);
+        }
     }
 
-    //region callback interface
-    public static interface IOnCallBack
-    {
-        public void OnAddSale(int id,String name);
-    }
-    //endregion
 }
