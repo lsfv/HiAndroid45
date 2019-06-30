@@ -6,11 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.amitshekhar.DebugDB;
 import com.linson.LSLibrary.AndroidHelper.LSBaseActivity;
 import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
 
+import okhttp3.OkHttpClient;
+
 public class Index extends LSBaseActivity implements View.OnClickListener
 {
+    private Button mBtnWeather;
     private Button mBtnJavapractice13;
     private Button mBtnJavapractice10;
     private Button mBtnJavapractice11;
@@ -25,8 +29,12 @@ public class Index extends LSBaseActivity implements View.OnClickListener
     private Button mBtnJavapractice2;
     private Button mBtnJavapractice;
 
+
+
+
     private void findControls()
     {
+        mBtnWeather = (Button) findViewById(R.id.btn_weather);
         mBtnJavapractice13 = (Button) findViewById(R.id.btn_javapractice13);
         mBtnJavapractice10 = (Button) findViewById(R.id.btn_javapractice10);
         mBtnJavapractice11 = (Button) findViewById(R.id.btn_javapractice11);
@@ -49,6 +57,8 @@ public class Index extends LSBaseActivity implements View.OnClickListener
         setContentView(R.layout.activity_index);
         findControls();
         setEvent();
+
+        LSComponentsHelper.LS_Log.Log_INFO("db:"+DebugDB.getAddressLog());
     }
 
     private void setEvent()
@@ -66,6 +76,7 @@ public class Index extends LSBaseActivity implements View.OnClickListener
         mBtnJavapractice11.setOnClickListener(this);
         mBtnJavapractice12.setOnClickListener(this);
         mBtnJavapractice13.setOnClickListener(this);
+        mBtnWeather.setOnClickListener(this);
     }
 
     @Override
@@ -135,6 +146,11 @@ public class Index extends LSBaseActivity implements View.OnClickListener
             case R.id.btn_javapractice9://Services
             {
                 LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Services.Index.class);
+                break;
+            }
+            case R.id.btn_weather://Services
+            {
+                LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Weather.Control.Index.class);
                 break;
             }
         }

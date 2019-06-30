@@ -102,7 +102,8 @@
         <activity android:name=".Services.SingleServices" />
         <activity android:name=".Services.SaleQuery" />
         <activity android:name=".Services.SocketPracice" />
-        <activity android:name=".Weather.Index"></activity>
+        <activity android:name=".Weather.Control.Index" />
+        <activity android:name=".Weather.Control.Main"></activity>
     </application>
 
 </manifest>
