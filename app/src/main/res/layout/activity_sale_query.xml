@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_add"
+        android:id="@+id/btn_add2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -34,8 +34,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@android:string/search_go"
-        app:layout_constraintStart_toEndOf="@+id/btn_add"
-        app:layout_constraintTop_toTopOf="@+id/btn_add" />
+        app:layout_constraintStart_toEndOf="@+id/btn_add2"
+        app:layout_constraintTop_toTopOf="@+id/btn_add2" />
 
     <TextView
         android:id="@+id/tv_message"
@@ -45,7 +45,7 @@
         android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_add" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_add2" />
 
     <Button
         android:id="@+id/btn_unbind"

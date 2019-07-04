@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.amitshekhar.DebugDB;
 import com.linson.LSLibrary.AndroidHelper.LSBaseActivity;
 import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
 
@@ -14,6 +13,7 @@ import okhttp3.OkHttpClient;
 
 public class Index extends LSBaseActivity implements View.OnClickListener
 {
+    private Button mBtnWeather2;
     private Button mBtnWeather;
     private Button mBtnJavapractice13;
     private Button mBtnJavapractice10;
@@ -28,12 +28,20 @@ public class Index extends LSBaseActivity implements View.OnClickListener
     private Button mBtnJavapractice3;
     private Button mBtnJavapractice2;
     private Button mBtnJavapractice;
+    private Button mBtnDp;
+
+
+
+
+
+
 
 
 
 
     private void findControls()
     {
+        mBtnWeather2 = (Button) findViewById(R.id.btn_weather2);
         mBtnWeather = (Button) findViewById(R.id.btn_weather);
         mBtnJavapractice13 = (Button) findViewById(R.id.btn_javapractice13);
         mBtnJavapractice10 = (Button) findViewById(R.id.btn_javapractice10);
@@ -48,6 +56,7 @@ public class Index extends LSBaseActivity implements View.OnClickListener
         mBtnJavapractice3 = (Button) findViewById(R.id.btn_javapractice3);
         mBtnJavapractice2 = (Button) findViewById(R.id.btn_javapractice2);
         mBtnJavapractice = (Button) findViewById(R.id.btn_javapractice);
+        mBtnDp = (Button) findViewById(R.id.btn_dp);
     }
 
     @Override
@@ -58,7 +67,7 @@ public class Index extends LSBaseActivity implements View.OnClickListener
         findControls();
         setEvent();
 
-        LSComponentsHelper.LS_Log.Log_INFO("db:"+DebugDB.getAddressLog());
+        //LSComponentsHelper.LS_Log.Log_INFO("db:"+DebugDB.getAddressLog());
     }
 
     private void setEvent()
@@ -77,6 +86,8 @@ public class Index extends LSBaseActivity implements View.OnClickListener
         mBtnJavapractice12.setOnClickListener(this);
         mBtnJavapractice13.setOnClickListener(this);
         mBtnWeather.setOnClickListener(this);
+        mBtnWeather2.setOnClickListener(this);
+        mBtnDp.setOnClickListener(this);
     }
 
     @Override
@@ -151,6 +162,16 @@ public class Index extends LSBaseActivity implements View.OnClickListener
             case R.id.btn_weather://Services
             {
                 LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.Weather.Control.Index.class);
+                break;
+            }
+            case R.id.btn_weather2://Services
+            {
+                LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.OPAIWeather.Control.Index.class);
+                break;
+            }
+            case R.id.btn_dp:
+            {
+                LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.DesignPattern.Index.class);
                 break;
             }
         }

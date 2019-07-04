@@ -32,12 +32,17 @@ public class Index extends AppCompatActivity implements View.OnClickListener
     private Button mBtnGet2;
     private Button mBtnGet;
     private TextView mTvMsg;
+    private Button mBtnDownload;
+
+
+
 
     private void findControls()
     {
         mBtnGet2 = (Button) findViewById(R.id.btn_get2);
         mBtnGet = (Button) findViewById(R.id.btn_get);
         mTvMsg = (TextView) findViewById(R.id.tv_msg);
+        mBtnDownload = (Button) findViewById(R.id.btn_download);
     }
     //auto generate
 
@@ -60,6 +65,7 @@ public class Index extends AppCompatActivity implements View.OnClickListener
         mBtnGet2.setOnClickListener(this);
         mBtnGet.setOnClickListener(this);
         mTvMsg.setOnClickListener(this);
+        mBtnDownload.setOnClickListener(this);
     }
 
 
@@ -111,7 +117,19 @@ public class Index extends AppCompatActivity implements View.OnClickListener
                 });
                 break;
             }
+            case R.id.btn_download:
+            {
+                download();
+            }
         }
+    }
+
+
+    //dowanload:什么协议？http ftp? if http:1.会先得到大小？如果有大小。那就是一直收，直到收到大小。或者断掉。
+    private void download()
+    {
+
+
     }
 
 

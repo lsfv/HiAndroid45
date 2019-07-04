@@ -1,7 +1,10 @@
 package com.linson.LSLibrary.Network;
 
+import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
+
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -38,5 +41,31 @@ public abstract class LSOKHttp
                 .post(formbody.build())
                 .build();
         client.newCall(request).enqueue(callbackHandler);
+    }
+
+    /**
+     *it is a synctask. so you should not invoke it in ui thread.
+     * @param url you want to get
+     * @param callbackHandler call back
+     */
+    public static void getSync(String url,  Callback callbackHandler)
+    {
+        OkHttpClient client=new OkHttpClient.Builder()
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .readTimeout(10,TimeUnit.SECONDS )
+                .build();
+        Request request=new Request.Builder()
+                .url(url)
+                .build();
+        Call callab = client.newCall(request);
+        try
+        {
+            Response response=callab.execute();
+            callbackHandler.onResponse(callab, response);
+        }
+        catch (Exception e) {
+            IOException exception=new IOException(e.toString());
+            callbackHandler.onFailure(callab,exception);
+        }
     }
 }

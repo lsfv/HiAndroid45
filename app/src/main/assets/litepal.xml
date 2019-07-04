@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="why3"></dbname>
+    <version value="31"></version>
+    <list>
+        <mapping class="com.linson.android.hiandroid2.Selialzation.Pen"></mapping>
+        <mapping class="com.linson.android.hiandroid2.Selialzation.Student"></mapping>
+    </list>
+</litepal>

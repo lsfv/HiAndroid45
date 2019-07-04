@@ -7,6 +7,17 @@
     tools:context=".Index">
 
     <Button
+        android:id="@+id/btn_weather2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Practice:weather2"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_javapractice9" />
+
+    <Button
         android:id="@+id/btn_weather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -157,4 +168,14 @@
         android:textAllCaps="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="DesignPattern"
+        app:layout_constraintBottom_toTopOf="@+id/btn_javapractice13"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

@@ -35,7 +35,7 @@ public class SaleQuery extends AppCompatActivity implements View.OnClickListener
     private void findControls()
     {   //findControls
         mEtName = (EditText) findViewById(R.id.et_name);
-        mBtnAdd = (Button) findViewById(R.id.btn_add);
+        mBtnAdd = (Button) findViewById(R.id.btn_add2);
         mBtnSearch = (Button) findViewById(R.id.btn_search);
         mTvMessage = (TextView) findViewById(R.id.tv_message);
         mBtnUnbind = (Button) findViewById(R.id.btn_unbind);
@@ -51,7 +51,7 @@ public class SaleQuery extends AppCompatActivity implements View.OnClickListener
     {
         switch (v.getId())
         {
-            case R.id.btn_add:
+            case R.id.btn_add2:
             {
                 add();
                 break;

@@ -13,8 +13,9 @@ public class StaticFragment extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        LSComponentsHelper.LS_Log.Log_INFO("activity oncreate");
+        LSComponentsHelper.LS_Log.Log_INFO("activity before super oncreate");
         super.onCreate(savedInstanceState);
+        LSComponentsHelper.LS_Log.Log_INFO("activity after super oncreate");
         setContentView(R.layout.activity_static_fragment);
     }
 

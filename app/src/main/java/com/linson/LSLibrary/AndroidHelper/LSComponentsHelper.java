@@ -21,6 +21,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.linson.android.hiandroid2.R;
 
@@ -28,6 +31,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.zip.Inflater;
 
 //类似public static class MultiMedia，把功能还是按组件分类出来。
 public abstract class LSComponentsHelper
@@ -157,6 +161,21 @@ public abstract class LSComponentsHelper
             Intent myIntent=new Intent(context,cls);
             context.startActivity(myIntent);
         }
+
+        public static View inflast_Normal(Context context,int rid,ViewGroup viewGroup)
+        {
+            return LayoutInflater.from(context).inflate(rid, viewGroup,false);
+        }
+
+        public static View inflast_WrapFather(Context context,int rid,ViewGroup viewGroup)
+        {
+            return LayoutInflater.from(context).inflate(rid, viewGroup,true);
+        }
+
+        public static View inflast_ClearArrer(Context context,int rid)
+        {
+            return LayoutInflater.from(context).inflate(rid, null,false);
+        }
     }
 
     //log
@@ -176,9 +195,15 @@ public abstract class LSComponentsHelper
         }
         public static void Log_Exception(Exception e)
         {
-            Log.i(LOGTAG, getAutoJumpLogInfos()+" : "+e.toString());
+            Log.i(LOGTAG, getAutoJumpLogInfos()+" : "+e.toString()+".\r\n");
+            for(StackTraceElement item : e.getStackTrace())
+            {
+                Log.i(LOGTAG, item.toString()+".\r\n");
+            }
         }
-        public static void Log_Exception(Exception e,String prefix) { Log.i(LOGTAG,prefix+"."+ e.toString()); }
+        public static void Log_Exception(Exception e,String prefix) {
+            Log.i(LOGTAG,prefix+"."+ e.toString()+"."+e.getStackTrace()[0].getClassName()+"."+e.getStackTrace()[0].getLineNumber());
+        }
 
         private static String getAutoJumpLogInfos() {
             String[] infos = new String[]{"", "", ""};
@@ -323,5 +348,6 @@ public abstract class LSComponentsHelper
 
 
     }
+
     //endregion
 }
