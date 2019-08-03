@@ -1,5 +1,6 @@
 package com.linson.android.hiandroid2.UI.myCustomView;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;

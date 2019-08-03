@@ -8,9 +8,13 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -18,16 +22,18 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import com.linson.android.hiandroid2.R;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -36,10 +42,6 @@ import java.util.zip.Inflater;
 //类似public static class MultiMedia，把功能还是按组件分类出来。
 public abstract class LSComponentsHelper
 {
-    public  interface Mp3Handler
-    {
-        public void OnchangeState(int state,int rid);
-    }
     //region old version's functions
     public static void Log_INFO(String msg)
     {
@@ -64,14 +66,13 @@ public abstract class LSComponentsHelper
     //endregion old version's functions
 
 
-    //global define
+    //region global define
     public static String LOGTAG="MYCUSTOM~!@";
-    public interface VoidHandler
-    {
-        public void doti();
-    }
+    public interface VoidHandler { public void doti();}
+    public interface Mp3Handler { public void OnchangeState(int state,int rid);}
+    //endregion
 
-    //other helper
+    //region other helper
     public static class LS_Other
     {
         public static void checkPermission(Activity context, final String permission,VoidHandler voidHandler)
@@ -88,8 +89,9 @@ public abstract class LSComponentsHelper
             }
         }
     }
+    //endregion
 
-    //multi helper
+    //region multi helper
     public static class MultiMedia
     {
         public static Bitmap getBitmap(Activity activity, Intent intent)
@@ -152,8 +154,9 @@ public abstract class LSComponentsHelper
             return path;
         }
     }
+    //endregion
 
-    //activity helper
+    //region activity helper
     public static class LS_Activity
     {
         public static void startActivity(Context context, Class<?> cls)
@@ -177,13 +180,18 @@ public abstract class LSComponentsHelper
             return LayoutInflater.from(context).inflate(rid, null,false);
         }
     }
+    //endregion
 
-    //log
+    //region log
     public static class LS_Log
     {
         public static void Log_INFO(String msg)
         {
             Log.i(LOGTAG, getAutoJumpLogInfos()+" : "+msg);
+        }
+        public static void Log_INFO(String msgForamt,Object... values)
+        {
+            Log.i(LOGTAG, getAutoJumpLogInfos()+" : "+String.format(msgForamt, values));
         }
         public static void Log_DEBUG(String msg)
         {
@@ -202,7 +210,8 @@ public abstract class LSComponentsHelper
             }
         }
         public static void Log_Exception(Exception e,String prefix) {
-            Log.i(LOGTAG,prefix+"."+ e.toString()+"."+e.getStackTrace()[0].getClassName()+"."+e.getStackTrace()[0].getLineNumber());
+            Log.i(LOGTAG,prefix);
+            Log_Exception(e);
         }
 
         private static String getAutoJumpLogInfos() {
@@ -219,6 +228,7 @@ public abstract class LSComponentsHelper
             }
         }
     }
+    //endregion
 
     //region notification
     public static class LS_Notification
@@ -349,5 +359,79 @@ public abstract class LSComponentsHelper
 
     }
 
+    //endregion
+
+    //region CustomViewHelper
+    public static class LS_CustomViewHelper
+    {
+
+        public static class SuggestMeasure
+        {
+            public int width;
+            public int height;
+        }
+
+        public static TypedArray getTypedArray(Context context, AttributeSet attrs,int[] attrFileName)
+        {
+            return context.obtainStyledAttributes(attrs, attrFileName);
+        }
+
+        public static String getModeStr(int value)
+        {
+            if(value==View.MeasureSpec.UNSPECIFIED)
+            {
+                return "UNSPECIFIED";
+            }
+            else if(value==View.MeasureSpec.EXACTLY)
+            {
+                return "EXACTLY";
+            }
+            else if(value==View.MeasureSpec.AT_MOST)
+            {
+                return "AT_MOST";
+            }
+            else
+            {
+                return "Exception!";
+            }
+        }
+
+        public static String getMeasureStr(int MeasureSpec)
+        {
+            int width=View.MeasureSpec.getSize(MeasureSpec);
+            int wMode=View.MeasureSpec.getMode(MeasureSpec);
+            return String.format("vaule:%d,mode:%s",width,getModeStr(wMode));
+        }
+
+        //如果2个都是exactly那么不变，如果一个exactly,一个contextWrap.那么依据默认值比例来设置值，如果2个都是contextWrap.那么设置为默认值.
+        public static SuggestMeasure getCommonMeasure(int widthMeasureSpec,int heightMeasureSpec,int defaultWidth,int defaultHeigh)
+        {
+            SuggestMeasure suggestMeasure=new SuggestMeasure();
+            int width=View.MeasureSpec.getSize(widthMeasureSpec);
+            int wMode=View.MeasureSpec.getMode(widthMeasureSpec);
+            int height=View.MeasureSpec.getSize(heightMeasureSpec);
+            int hMode=View.MeasureSpec.getMode(heightMeasureSpec);
+
+            suggestMeasure.height=height;
+            suggestMeasure.width=width;
+
+            if(wMode!=View.MeasureSpec.EXACTLY && hMode!=View.MeasureSpec.EXACTLY)
+            {
+                suggestMeasure.height=defaultHeigh;
+                suggestMeasure.width=defaultWidth;
+            }
+            else if(wMode==View.MeasureSpec.EXACTLY && hMode!=View.MeasureSpec.EXACTLY)
+            {
+                suggestMeasure.height=width*(defaultHeigh/defaultWidth);
+                suggestMeasure.width=width;
+            }
+            else if(wMode!=View.MeasureSpec.EXACTLY && hMode==View.MeasureSpec.EXACTLY)
+            {
+                suggestMeasure.width=height*(defaultWidth/defaultHeigh);
+                suggestMeasure.height=height;
+            }
+            return suggestMeasure;
+        }
+    }
     //endregion
 }

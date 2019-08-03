@@ -4,111 +4,98 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.myCustomView.index">
+    tools:context=".UI.myCustomView.Animotion.ValueAnimation.VAIndex">
 
-    <Button
-        android:id="@+id/btn_Animotion"
-        android:layout_width="372dp"
-        android:layout_height="36dp"
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
-        android:text="Animotion"
-        android:textAllCaps="false"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView8"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_signalRv" />
+        app:srcCompat="@color/colorAccent" />
 
     <Button
-        android:id="@+id/btn_signalRv"
+        android:id="@+id/btn_Object"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="300dp"
         android:layout_marginEnd="8dp"
-        android:text="Signal Recycle"
+        android:text="Object"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_OfObject" />
 
     <Button
-        android:id="@+id/btn_flowlayout"
+        android:id="@+id/btn_OfObject"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="244dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="8dp"
-        android:text="Flow layout"
+        android:text="OfObject"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_simpleValue" />
 
     <Button
-        android:id="@+id/btn_circleImage"
+        android:id="@+id/btn_Evalutor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="188dp"
         android:layout_marginEnd="8dp"
-        android:text="circle Image"
+        android:text="Evalutor"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_simpleValue" />
 
     <Button
-        android:id="@+id/btn_event"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="8dp"
-        android:text="Event"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_scrolleer2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="132dp"
-        android:layout_marginEnd="8dp"
-        android:text="Scroll page"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_scrolleer1"
+        android:id="@+id/btn_simpleValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Scroller1"
+        android:text="SimpleValueAnimation"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_Paint"
-        android:layout_width="372dp"
-        android:layout_height="36dp"
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Paint"
-        android:textAllCaps="false"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_signalRv" />
+        app:srcCompat="@color/colorAccent" />
 
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="178dp"
+        android:layout_height="119dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/mypic" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@color/color_cat_green" />
 </android.support.constraint.ConstraintLayout>

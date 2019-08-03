@@ -18,21 +18,66 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Index extends LSBaseActivity
 {
     private TextView tv_msg;
+    private  static Integer mStaticint=test();
+
+    public  static Integer test()
+    {
+        try
+        {
+            Thread.sleep(5000);
+        } catch (Exception e)
+        {
+            LSComponentsHelper.LS_Log.Log_Exception(e);
+        }
+        LSComponentsHelper.LS_Log.Log_INFO("enter test"+Thread.currentThread().getName());
+        return 4;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        final int[] i = {0};
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index2);
-        tv_msg=findViewById(R.id.tv_msg);
+        tv_msg = findViewById(R.id.tv_msg);
+
+        ThreadPoolExecutor poolExecutor=new ThreadPoolExecutor(5, 20, 5, TimeUnit.SECONDS ,
+                new ArrayBlockingQueue<Runnable>(10),new ThreadPoolExecutor.DiscardOldestPolicy());
+
+        while (true)
+        {
+            poolExecutor.execute(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    try
+                    {
+                        Thread.sleep(1000);
+                    } catch (Exception e)
+                    {
+                        LSComponentsHelper.LS_Log.Log_Exception(e);
+                    }
+                    LSComponentsHelper.LS_Log.Log_INFO(i[0] +":"+Thread.currentThread().getId()+".");
+                    i[0]++;
+                }
+            });
+        }
+
+    }
+
+
 
         //ListMap();
 
@@ -48,8 +93,37 @@ public class Index extends LSBaseActivity
 
         //readwrite();
 
-        listPractice();
-    }
+        //listPractice();
+
+//        new Thread(new Runnable()
+//        {
+//            @Override
+//            public void run()
+//            {
+//                LSComponentsHelper.LS_Log.Log_INFO(mStaticint+Thread.currentThread().getName());
+//            }
+//        }).start();
+//
+//        new Thread(new Runnable()
+//        {
+//            @Override
+//            public void run()
+//            {
+//                LSComponentsHelper.LS_Log.Log_INFO(mStaticint+Thread.currentThread().getName());
+//            }
+//        }).start();
+//
+//        new Thread(new Runnable()
+//        {
+//            @Override
+//            public void run()
+//            {
+//                LSComponentsHelper.LS_Log.Log_INFO(mStaticint+Thread.currentThread().getName());
+//            }
+//        }).start();
+
+
+  //  }
 
     private void listPractice()
     {

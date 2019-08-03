@@ -107,7 +107,16 @@
         <activity android:name=".Weather.Control.Main" />
         <activity android:name=".OPAIWeather.Control.Index" />
         <activity android:name=".OPAIWeather.Control.Main" />
-        <activity android:name=".DesignPattern.Index"></activity>
+        <activity android:name=".DesignPattern.Index" />
+        <activity android:name=".UI.myCustomView.MyCircleImage" />
+        <activity android:name=".UI.myCustomView.MyFlowLayout" />
+        <activity android:name=".UI.myCustomView.MySignalRV" />
+        <activity android:name=".UI.myCustomView.DrawIt.Index" />
+        <activity android:name=".UI.myCustomView.DrawIt.BasePaint" />
+        <activity android:name=".UI.myCustomView.DrawIt.AdvancePraice" />
+        <activity android:name=".UI.myCustomView.Animotion.Index" />
+        <activity android:name=".UI.myCustomView.Animotion.ValueAnimation.VAIndex" />
+        <activity android:name=".UI.myCustomView.Animotion.Main"></activity>
     </application>
 
 </manifest>
