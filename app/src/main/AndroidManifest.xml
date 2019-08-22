@@ -116,7 +116,13 @@
         <activity android:name=".UI.myCustomView.DrawIt.AdvancePraice" />
         <activity android:name=".UI.myCustomView.Animotion.Index" />
         <activity android:name=".UI.myCustomView.Animotion.ValueAnimation.VAIndex" />
-        <activity android:name=".UI.myCustomView.Animotion.Main"></activity>
+        <activity android:name=".UI.myCustomView.Animotion.Main" />
+        <activity android:name=".UI.NewCustomView.MyPaint.PaintIndex" />
+        <activity android:name=".UI.NewCustomView.MyPaint.BasePaint" />
+        <activity android:name=".UI.NewCustomView.MyPaint.ComplexPaint" />
+        <activity android:name=".UI.NewCustomView.MyView.ViewIndex" />
+        <activity android:name=".UI.NewCustomView.MyAnimation.AnimationIndex" />
+        <activity android:name=".Resite.ResiteIndex"></activity>
     </application>
 
 </manifest>

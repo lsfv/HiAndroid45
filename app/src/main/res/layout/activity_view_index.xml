@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.NewCustomView.MyView.ViewIndex">
+
+    <com.linson.android.hiandroid2.UI.NewCustomView.MyView.viewLib.CircleImage
+        android:id="@+id/ci_test1"
+        android:layout_width="150dp"
+        android:layout_height="130dp"
+        android:background="@drawable/round_transparent"
+        app:CircleImage_img="@drawable/mypic"
+        app:CircleImage_radius="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.linson.android.hiandroid2.UI.NewCustomView.MyView.viewLib.GroupTest
+        android:id="@+id/grouptest1"
+        android:layout_width="286dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ci_test1"></com.linson.android.hiandroid2.UI.NewCustomView.MyView.viewLib.GroupTest>
+
+    <com.linson.android.hiandroid2.UI.NewCustomView.MyView.viewLib.GroupTest
+        android:id="@+id/grouptest2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:tag="name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grouptest1"></com.linson.android.hiandroid2.UI.NewCustomView.MyView.viewLib.GroupTest>
+
+    <com.linson.android.hiandroid2.UI.NewCustomView.MyView.viewLib.MyRecycleView
+        android:id="@+id/myrecycle"
+        android:layout_width="0dp"
+        android:layout_height="240dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></com.linson.android.hiandroid2.UI.NewCustomView.MyView.viewLib.MyRecycleView>
+
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="wrap_content"
+        android:layout_height="133dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/startok"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

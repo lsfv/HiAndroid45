@@ -7,11 +7,76 @@
     tools:context=".UI.myCustomView.Animotion.Main">
 
     <Button
-        android:id="@+id/btn_loopPan3"
+        android:id="@+id/btn_house1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="284dp"
+        android:layout_marginBottom="92dp"
+        android:text="跑马"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_house2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="284dp"
+        android:layout_marginBottom="44dp"
+        android:text="跑马"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_house3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="284dp"
+        android:text="电话效果"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_throw1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="196dp"
+        android:layout_marginBottom="92dp"
+        android:text="抛物线"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_throw2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="196dp"
+        android:layout_marginBottom="44dp"
+        android:text="抛物线"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_throw3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="196dp"
+        android:text="抛物线"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_loopPan3"
+        android:layout_width="99dp"
+        android:layout_height="45dp"
         android:layout_marginStart="8dp"
-        android:text="转盘"
+        android:text="转盘:object"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -19,8 +84,9 @@
         android:id="@+id/btn_Wave3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
+        android:layout_marginStart="104dp"
         android:text="Wave"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -30,7 +96,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="44dp"
-        android:text="转盘"
+        android:text="转盘:value"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -41,6 +108,7 @@
         android:layout_marginStart="108dp"
         android:layout_marginBottom="44dp"
         android:text="Wave"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -52,7 +120,8 @@
         android:layout_marginBottom="92dp"
         android:text="Wave"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="10sp" />
 
     <ImageView
         android:id="@+id/imageView12"
@@ -80,7 +149,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="92dp"
-        android:text="转盘"
+        android:text="转盘:view"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -135,4 +205,33 @@
         android:text="msg:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView12"
+        app:srcCompat="@drawable/circleok" />
+
+    <ImageView
+        android:id="@+id/iv_house"
+        android:layout_width="110dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_msg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/round_transparent" />
+
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="126dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_house"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/phone" />
 </android.support.constraint.ConstraintLayout>

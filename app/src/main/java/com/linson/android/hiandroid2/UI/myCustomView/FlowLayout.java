@@ -43,7 +43,7 @@ public class FlowLayout extends ViewGroup
         heightSum=heightSum==0?defaultHeight:heightSum;
         maxLength=maxLength==0?defaultWeight:maxLength;
 
-        SuggestMeasure suggestMeasure=getCommonMeasure(widthMeasureSpec, heightMeasureSpec, defaultWeight, defaultHeight);
+        SuggestMeasure suggestMeasure=getCommonMeasure(widthMeasureSpec, heightMeasureSpec, defaultWeight, defaultHeight,LSComponentsHelper.LS_CustomViewHelper.Enum_MeasureType.rate);
         setMeasuredDimension(suggestMeasure.width, suggestMeasure.height);
     }
 

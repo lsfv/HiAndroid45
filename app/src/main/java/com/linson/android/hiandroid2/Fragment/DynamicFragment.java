@@ -95,7 +95,7 @@ public class DynamicFragment extends AppCompatActivity implements View.OnClickLi
     {
         switch (v.getId())
         {
-            case R.id.btn_second:
+            case R.id.btn_frist:
             {
                 FragmentManager fragmentManager=getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
@@ -105,7 +105,7 @@ public class DynamicFragment extends AppCompatActivity implements View.OnClickLi
 
                 break;
             }
-            case R.id.btn_frist:
+            case R.id.btn_second:
             {
                 FragmentManager fragmentManager=getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();

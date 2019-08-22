@@ -24,9 +24,9 @@ import android.widget.Toast;
 import com.linson.LSLibrary.AndroidHelper.LSAnimation;
 import com.linson.LSLibrary.AndroidHelper.LSComponentsHelper;
 import com.linson.android.hiandroid2.R;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 //!!!!!!支付成功的 路径动画没有去做。
 //obj:转奖盘，波扩散，马奔跑。抛物线，支付成功，电话震动

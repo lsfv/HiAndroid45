@@ -35,7 +35,7 @@ public class RadarView extends View
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        LSComponentsHelper.LS_CustomViewHelper.SuggestMeasure suggestMeasure=getCommonMeasure(widthMeasureSpec, heightMeasureSpec, mDefaultWidth, mDefaultHeight);
+        LSComponentsHelper.LS_CustomViewHelper.SuggestMeasure suggestMeasure=getCommonMeasure(widthMeasureSpec, heightMeasureSpec, mDefaultWidth, mDefaultHeight,LSComponentsHelper.LS_CustomViewHelper.Enum_MeasureType.rate);
         setMeasuredDimension(suggestMeasure.width, suggestMeasure.height);
     }
 

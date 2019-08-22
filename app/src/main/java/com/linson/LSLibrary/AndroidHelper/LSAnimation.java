@@ -1,5 +1,9 @@
 package com.linson.LSLibrary.AndroidHelper;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -11,6 +15,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 
 public abstract class LSAnimation
 {
@@ -75,6 +80,28 @@ public abstract class LSAnimation
         animationSet_set1.setFillBefore(false);
 
         return animationSet_set1;
+    }
+
+    //
+    public static AnimatorSet waveSpread(ImageView target)
+    {
+        AnimatorSet animatorSet_wave=new AnimatorSet();
+        Animator animator_scator=ObjectAnimator.ofFloat(target, "scaleX",1.0f,2f);
+        animator_scator.setDuration(9000);
+        ((ObjectAnimator) animator_scator).setRepeatCount(ValueAnimator.INFINITE);
+
+
+        Animator animator_scator2=ObjectAnimator.ofFloat(target, "scaleY",1.0f,2f);
+        animator_scator2.setDuration(9000);
+        ((ObjectAnimator) animator_scator2).setRepeatCount(ValueAnimator.INFINITE);
+
+        Animator animator_apach=ObjectAnimator.ofFloat(target, "alpha",1,0);
+        animator_apach.setDuration(9000);
+        ((ObjectAnimator) animator_apach).setRepeatCount(ValueAnimator.INFINITE);
+
+        animatorSet_wave.playTogether(animator_scator,animator_scator2,animator_apach);
+
+        return animatorSet_wave;
     }
 
 

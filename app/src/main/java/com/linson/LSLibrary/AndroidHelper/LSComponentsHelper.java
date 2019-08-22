@@ -364,6 +364,11 @@ public abstract class LSComponentsHelper
     //region CustomViewHelper
     public static class LS_CustomViewHelper
     {
+        public enum Enum_MeasureType
+        {
+            fixDefault,
+            rate
+        }
 
         public static class SuggestMeasure
         {
@@ -403,8 +408,11 @@ public abstract class LSComponentsHelper
             return String.format("vaule:%d,mode:%s",width,getModeStr(wMode));
         }
 
-        //如果2个都是exactly那么不变，如果一个exactly,一个contextWrap.那么依据默认值比例来设置值，如果2个都是contextWrap.那么设置为默认值.
-        public static SuggestMeasure getCommonMeasure(int widthMeasureSpec,int heightMeasureSpec,int defaultWidth,int defaultHeigh)
+        //如果2个都是exactly那么不变，如果2个都是contextWrap.那么设置为默认值.
+        //如果一个exactly,一个contextWrap.那么有2种常见的策略：
+        //1.contextWrap会用依据exactly和默认值比例来设置值，
+        //2.contextwarp固定为是default.
+        public static SuggestMeasure getCommonMeasure(int widthMeasureSpec,int heightMeasureSpec,int defaultWidth,int defaultHeigh,Enum_MeasureType type)
         {
             SuggestMeasure suggestMeasure=new SuggestMeasure();
             int width=View.MeasureSpec.getSize(widthMeasureSpec);
@@ -422,12 +430,26 @@ public abstract class LSComponentsHelper
             }
             else if(wMode==View.MeasureSpec.EXACTLY && hMode!=View.MeasureSpec.EXACTLY)
             {
-                suggestMeasure.height=width*(defaultHeigh/defaultWidth);
+                if(type==Enum_MeasureType.rate)
+                {
+                    suggestMeasure.height = width * (defaultHeigh / defaultWidth);
+                }
+                else
+                {
+                    suggestMeasure.height=defaultHeigh;
+                }
                 suggestMeasure.width=width;
             }
             else if(wMode!=View.MeasureSpec.EXACTLY && hMode==View.MeasureSpec.EXACTLY)
             {
-                suggestMeasure.width=height*(defaultWidth/defaultHeigh);
+                if(type==Enum_MeasureType.rate)
+                {
+                    suggestMeasure.width = height * (defaultWidth / defaultHeigh);
+                }
+                else
+                {
+                    suggestMeasure.width=defaultWidth;
+                }
                 suggestMeasure.height=height;
             }
             return suggestMeasure;

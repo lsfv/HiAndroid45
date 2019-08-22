@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Other"
+        android:text="Resite"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="@+id/btn_javapractice11"
         app:layout_constraintStart_toEndOf="@+id/btn_javapractice11" />
@@ -178,4 +178,5 @@
         android:text="DesignPattern"
         app:layout_constraintBottom_toTopOf="@+id/btn_javapractice13"
         app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

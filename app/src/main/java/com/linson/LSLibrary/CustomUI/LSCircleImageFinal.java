@@ -63,7 +63,7 @@ public class LSCircleImageFinal extends View
     @Override
     protected void  onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
-        SuggestMeasure suggestMeasure=getCommonMeasure(widthMeasureSpec, heightMeasureSpec, mRadius*2, mRadius*2);
+        SuggestMeasure suggestMeasure=getCommonMeasure(widthMeasureSpec, heightMeasureSpec, mRadius*2, mRadius*2,LSComponentsHelper.LS_CustomViewHelper.Enum_MeasureType.rate);
         setMeasuredDimension(suggestMeasure.width, suggestMeasure.height);
         LS_Log.Log_INFO("onmeasure");
     }
@@ -88,7 +88,7 @@ public class LSCircleImageFinal extends View
         LS_Log.Log_INFO("ondraw");
         //图片切割成正方形。再缩放为view的大小。
         //设置shader.画圆。
-        // padding,不好做。因为 shader是从顶开始贴图，而padding会导致移动中心 ,而又没有好办法移动shader.
+        //padding,实现意义不大。因为有4个padding，实现要多点代码，这个完全可以用marging或其他代替。
 
         Bitmap bitmap=BitmapFactory.decodeResource(getResources(), mImgResourceID);
         int length=Math.min(bitmap.getHeight(), bitmap.getWidth());
@@ -100,7 +100,6 @@ public class LSCircleImageFinal extends View
         Paint paint=new Paint();
         BitmapShader bitmapShader=new BitmapShader(bitmap,Shader.TileMode.CLAMP , Shader.TileMode.CLAMP);
         paint.setShader(bitmapShader);
-
 
 
         int radius=Math.min((getRight()-getLeft())/2,(getBottom()-getTop())/2);

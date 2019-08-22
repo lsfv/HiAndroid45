@@ -38,7 +38,7 @@ public class basepp extends View
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width=600;
         int height=1900;
-        SuggestMeasure suggestMeasure=getCommonMeasure(widthMeasureSpec, heightMeasureSpec, width, height);
+        SuggestMeasure suggestMeasure=getCommonMeasure(widthMeasureSpec, heightMeasureSpec, width, height,Enum_MeasureType.rate);
         setMeasuredDimension(suggestMeasure.width, suggestMeasure.height);
     }
 
