@@ -67,17 +67,35 @@ public abstract class LSAnimation
         AnimationSet animationSet_set1=new AnimationSet(true);//变速器是否统一.
 
         Animation animation_scale=new ScaleAnimation(1.0f, 2.0f, 1.0f, 2.0f, Animation.RELATIVE_TO_SELF,0.5f, Animation.RELATIVE_TO_SELF,0.5f  );
-        animation_scale.setDuration(9000);
         animation_scale.setRepeatCount(Animation.INFINITE);
-
         Animation animation_apache=new AlphaAnimation(1.0f, 0.1f);
-        animation_apache.setDuration(9000);
         animation_apache.setRepeatCount(Animation.INFINITE);
+
 
         animationSet_set1.addAnimation(animation_scale);
         animationSet_set1.addAnimation(animation_apache);
-        animationSet_set1.setFillAfter(true);
-        animationSet_set1.setFillBefore(false);
+        animationSet_set1.setFillAfter(false);
+        animationSet_set1.setFillBefore(true);
+        animationSet_set1.setDuration(9000);
+
+        return animationSet_set1;
+    }
+
+
+    //波扩散效果
+    public static AnimationSet waveSpread2()
+    {
+        AnimationSet animationSet_set1=new AnimationSet(true);//变速器是否统一.
+
+        Animation animation_scale=new ScaleAnimation(1.0f, 2.0f, 1.0f, 2.0f, Animation.RELATIVE_TO_SELF,0.5f, Animation.RELATIVE_TO_SELF,0.5f  );
+        Animation animation_apache=new AlphaAnimation(1.0f, 0.1f);
+
+
+        animationSet_set1.addAnimation(animation_scale);
+        animationSet_set1.addAnimation(animation_apache);
+        animationSet_set1.setFillAfter(false);
+        animationSet_set1.setFillBefore(true);
+        animationSet_set1.setDuration(9000);
 
         return animationSet_set1;
     }

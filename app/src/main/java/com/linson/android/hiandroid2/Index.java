@@ -127,7 +127,7 @@ public class Index extends LSBaseActivity implements View.OnClickListener
             }
             case R.id.btn_javapractice6://contentprovider
             {
-
+                LSComponentsHelper.startActivity(this, com.linson.android.hiandroid2.MyContent.ContentIndex.class);
                 break;
             }
             case R.id.btn_javapractice7://multeplemedia

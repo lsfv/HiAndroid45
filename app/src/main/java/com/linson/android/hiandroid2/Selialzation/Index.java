@@ -29,12 +29,6 @@ public class Index extends AppCompatActivity implements View.OnClickListener
     private Button mBtnInitionliza1;
     private View mView;
     private Button mBtnCreate2;
-
-
-
-
-
-
     private NormalData mnormalData;
     private  int mid=1;
 
@@ -47,6 +41,7 @@ public class Index extends AppCompatActivity implements View.OnClickListener
 
         findControls();
     }
+
 
     private void findControls()
     {
@@ -133,6 +128,7 @@ public class Index extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+
     /***
      * sql lite 还是不太方便。
      * 是需要一个 数据库 的 ORM   .对象关系映射。
@@ -164,6 +160,7 @@ public class Index extends AppCompatActivity implements View.OnClickListener
             LSComponentsHelper.LS_Log.Log_Exception(e);
         }
     }
+
     private void create2()
     {
 

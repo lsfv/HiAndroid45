@@ -21,7 +21,7 @@ import com.linson.android.hiandroid2.R;
 // 1.发送
 //Intent sendBroadcastIntent=new Intent("customboradcast");
 // sendBroadcast(sendBroadcastIntent);
-// 2.接受
+// 2.接收
 // IntentFilter intentFilter=new IntentFilter();
 // intentFilter.addAction("customboradcast");
 // registerReceiver(new CustomReceive(),intentFilter); (private class CustomReceive extends BroadcastReceiver)

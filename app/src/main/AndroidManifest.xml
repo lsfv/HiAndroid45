@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -70,7 +70,6 @@
         <activity android:name=".Fragment.Index" />
         <activity android:name=".Fragment.StaticFragment" />
         <activity android:name=".Fragment.DynamicFragment" />
-        <activity android:name=".Fragment.StackFragment" />
         <activity android:name=".Fragment.complexfragment" />
         <activity android:name=".Services.Index" />
         <activity android:name=".Services.HandlerPractice" />
@@ -80,7 +79,8 @@
         <service
             android:name=".BackServices.DownloadServices"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true" >
+        </service>
         <service
             android:name=".BackServices.CaculateServices"
             android:enabled="true"
@@ -122,7 +122,9 @@
         <activity android:name=".UI.NewCustomView.MyPaint.ComplexPaint" />
         <activity android:name=".UI.NewCustomView.MyView.ViewIndex" />
         <activity android:name=".UI.NewCustomView.MyAnimation.AnimationIndex" />
-        <activity android:name=".Resite.ResiteIndex"></activity>
+        <activity android:name=".Resite.ResiteIndex" />
+        <activity android:name=".Fragment.InterAction_index" />
+        <activity android:name=".MyContent.ContentIndex"></activity>
     </application>
 
 </manifest>

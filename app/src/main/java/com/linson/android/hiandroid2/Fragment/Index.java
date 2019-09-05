@@ -11,8 +11,7 @@ import com.linson.android.hiandroid2.R;
 public class Index extends AppCompatActivity implements View.OnClickListener
 {
     //静态生命周期
-    //动态加载，替换型。标题文章。
-    //fragment入栈的实践，引导注册。
+    //动态加载，替换型。标题文章。fragment入栈的实践，引导注册。
     //双页面的入栈实践。测试。
     private Button mBtnDynamic;
     private Button mBtnStack;
@@ -61,7 +60,7 @@ public class Index extends AppCompatActivity implements View.OnClickListener
             }
             case R.id.btn_stack:
             {
-                LSComponentsHelper.LS_Activity.startActivity(this, StackFragment.class);
+                LSComponentsHelper.LS_Activity.startActivity(this, InterAction_index.class);
                 break;
             }
             case R.id.btn_complexstack:
@@ -71,4 +70,6 @@ public class Index extends AppCompatActivity implements View.OnClickListener
             }
         }
     }
+
+
 }
