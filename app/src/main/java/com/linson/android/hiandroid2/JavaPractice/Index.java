@@ -29,7 +29,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Index extends LSBaseActivity
 {
     private TextView tv_msg;
-    private  static Integer mStaticint=test();
+    //private  static Integer mStaticint=test();
 
     public  static Integer test()
     {
@@ -47,14 +47,43 @@ public class Index extends LSBaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        final int[] i = {0};
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index2);
         tv_msg = findViewById(R.id.tv_msg);
 
+        //threadpool();
+
+        regex();
+    }
+
+    private void regex()
+    {
+       regex regex=new regex();
+//        boolean res=regex.isEmail("aa@173.com");
+//        LSComponentsHelper.LS_Log.Log_INFO(res+"");
+//
+//        try
+//        {
+//            List<String> res2 = regex.findemails("aa@173.comsdfsdf33a@163.comafsd");
+//            for (int i = 0; i < res2.size(); i++)
+//            {
+//                LSComponentsHelper.LS_Log.Log_INFO(res2.get(i).toString());
+//            }
+//        } catch (Exception e)
+//        {
+//            LSComponentsHelper.LS_Log.Log_Exception(e);
+//        }
+
+        regex.startStudyRegex();
+    }
+
+    private void threadpool()
+    {
         ThreadPoolExecutor poolExecutor=new ThreadPoolExecutor(5, 20, 5, TimeUnit.SECONDS ,
                 new ArrayBlockingQueue<Runnable>(10),new ThreadPoolExecutor.DiscardOldestPolicy());
 
+        final int[] i = {0};
         while (true)
         {
             poolExecutor.execute(new Runnable()
@@ -74,12 +103,10 @@ public class Index extends LSBaseActivity
                 }
             });
         }
-
     }
 
 
-
-        //ListMap();
+    //ListMap();
 
         //ThreadPractice threadPractice=new ThreadPractice();
         //threadPractice.test();

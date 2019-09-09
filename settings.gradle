@@ -1,1 +1,2 @@
-include ':app', ':newapp'
+include ':app', ':newapp', ':lslib'
+project(':lslib').projectDir = new File('lslibrary')
