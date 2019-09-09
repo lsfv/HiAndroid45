@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -79,8 +80,7 @@
         <service
             android:name=".BackServices.DownloadServices"
             android:enabled="true"
-            android:exported="true" >
-        </service>
+            android:exported="true"></service>
         <service
             android:name=".BackServices.CaculateServices"
             android:enabled="true"
@@ -124,7 +124,8 @@
         <activity android:name=".UI.NewCustomView.MyAnimation.AnimationIndex" />
         <activity android:name=".Resite.ResiteIndex" />
         <activity android:name=".Fragment.InterAction_index" />
-        <activity android:name=".MyContent.ContentIndex"></activity>
+        <activity android:name=".MyContent.ContentIndex" />
+        <activity android:name=".Services.SocketPractice"></activity>
     </application>
 
 </manifest>

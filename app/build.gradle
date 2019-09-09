@@ -35,4 +35,5 @@ dependencies {
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'
     implementation 'org.litepal.android:core:1.4.1'
     implementation 'com.itkacher.okhttpprofiler:okhttpprofiler:1.0.5'
+    compile project(path: ':lslib')
 }
