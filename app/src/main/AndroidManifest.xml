@@ -80,7 +80,7 @@
         <service
             android:name=".BackServices.DownloadServices"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
         <service
             android:name=".BackServices.CaculateServices"
             android:enabled="true"
@@ -125,7 +125,8 @@
         <activity android:name=".Resite.ResiteIndex" />
         <activity android:name=".Fragment.InterAction_index" />
         <activity android:name=".MyContent.ContentIndex" />
-        <activity android:name=".Services.SocketPractice"></activity>
+        <activity android:name=".Services.SocketPractice" />
+        <activity android:name=".Services.AIDLSys.SysAidl"></activity>
     </application>
 
 </manifest>
